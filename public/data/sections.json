@@ -1,0 +1,61 @@
+{
+    "title": "Vida marina profunda",
+    "intro": "Un recorrido por las cinco zonas verticales del oceano. A medida que descendemos, la luz se apaga, la presion aumenta y la vida toma formas cada vez mas extranas.",
+    "zones": [
+        {
+            "id": "epipelagica",
+            "name": "Zona epipelagica",
+            "depthRange": "0 - 200 m",
+            "color": "#3ec9e6",
+            "darkness": 0.0,
+            "description": "Zona iluminada por el sol. Aqui ocurre la mayor parte de la fotosintesis marina y vive la mayoria de las especies que conocemos: atunes, delfines, tortugas y fitoplancton.",
+            "svgPlaceholder": "/assets/svg/epipelagica.svg",
+            "audioPlaceholder": "/assets/audio/epipelagica.mp3",
+            "species": ["Atun rojo", "Delfin comun", "Tortuga verde"]
+        },
+        {
+            "id": "mesopelagica",
+            "name": "Zona mesopelagica",
+            "depthRange": "200 - 1000 m",
+            "color": "#1a6f99",
+            "darkness": 0.25,
+            "description": "Zona crepuscular. La luz solar apenas penetra; muchas especies producen su propia luz mediante bioluminiscencia.",
+            "svgPlaceholder": "/assets/svg/mesopelagica.svg",
+            "audioPlaceholder": "/assets/audio/mesopelagica.mp3",
+            "species": ["Pez hacha", "Calamar luciernaga", "Pez linterna"]
+        },
+        {
+            "id": "batipelagica",
+            "name": "Zona batipelagica",
+            "depthRange": "1000 - 4000 m",
+            "color": "#0d3a55",
+            "darkness": 0.55,
+            "description": "Oscuridad total. La presion es enorme y el alimento escaso. Predadores con dientes prominentes y senuelos luminosos dominan este nivel.",
+            "svgPlaceholder": "/assets/svg/batipelagica.svg",
+            "audioPlaceholder": "/assets/audio/batipelagica.mp3",
+            "species": ["Rape abisal", "Calamar gigante", "Pulpo dumbo"]
+        },
+        {
+            "id": "abisopelagica",
+            "name": "Zona abisopelagica",
+            "depthRange": "4000 - 6000 m",
+            "color": "#061f32",
+            "darkness": 0.8,
+            "description": "Llanuras abisales. Temperaturas cercanas al punto de congelacion y vida basada en detritos que caen desde arriba o en quimiosintesis cerca de fuentes hidrotermales.",
+            "svgPlaceholder": "/assets/svg/abisopelagica.svg",
+            "audioPlaceholder": "/assets/audio/abisopelagica.mp3",
+            "species": ["Holoturia abisal", "Pez tripode", "Gusano de tubo"]
+        },
+        {
+            "id": "hadopelagica",
+            "name": "Zona hadopelagica",
+            "depthRange": "6000 - 11000 m",
+            "color": "#020911",
+            "darkness": 1.0,
+            "description": "Las fosas oceanicas. La presion supera las 1000 atmosferas. Aun asi, encontramos anfipodos gigantes y peces caracol adaptados a este extremo.",
+            "svgPlaceholder": "/assets/svg/hadopelagica.svg",
+            "audioPlaceholder": "/assets/audio/hadopelagica.mp3",
+            "species": ["Anfipodo gigante", "Pez caracol de Mariana"]
+        }
+    ]
+}

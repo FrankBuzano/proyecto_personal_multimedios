@@ -1,0 +1,33 @@
+:root {
+    --c-surface: #e8f6ff;
+    --c-ink: #06222b;
+    --c-accent: #0aa6c2;
+
+    --font-display: "Segoe UI", system-ui, sans-serif;
+    --font-body: "Segoe UI", system-ui, sans-serif;
+
+    color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    background: var(--c-surface);
+    color: var(--c-ink);
+    font-family: var(--font-body);
+    line-height: 1.5;
+}
+
+img,
+svg {
+    max-width: 100%;
+    display: block;
+}
