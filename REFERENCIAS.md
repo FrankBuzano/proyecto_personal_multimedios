@@ -1,5 +1,14 @@
 # Referencias consultadas hasta este punto
 
+## Uso de la IA (Chat GPT)
+
+- **03.06.2026** — Guía para reutilizar código Vue como Web Components
+  - Instrucciones: "cómo empaquetar un componente Vue 3 como web component"
+  - Principales hallazgos:
+    - Usar `defineCustomElement`.
+    - Nombrar correctamente el tag HTML (`<mi-widget-popularidad>`).
+    - Importar y exportar desde el entry-point (`main.ts`).
+    - Opciones de configuración (`shadowRootMode`, `shadowRoot.delegatesFocus`).
 
 
 ## Vue 3
@@ -9,4 +18,20 @@
 - API: `defineProps`, `defineEmits`, validación de eventos: <https://vuejs.org/api/sfc-script-setup.html>
 - Reactividad: `ref` / `computed`: <https://vuejs.org/guide/essentials/reactivity-fundamentals.html>
 - `onMounted` y ciclo de vida: <https://vuejs.org/guide/essentials/lifecycle.html>
+
+## Vida marina (datos de la infografía)
+
+Fuentes utilizadas en `public/data/sections.json`. Los identificadores numéricos coinciden con el campo `fuentes` de cada zona dentro del JSON.
+
+- [1] Exploring Our Fluid Earth, Univ. of Hawaii at Manoa — Depth Zones: <https://manoa.hawaii.edu/exploringourfluidearth/physical/ocean-depths/depth-zones>
+- [2] Woods Hole Oceanographic Institution — Ocean Zones: <https://www.whoi.edu/ocean-learning-hub/ocean-topics/how-the-ocean-works/ocean-zones/>
+- [3] Dummies — The 5 Vertical Zones of the Ocean's Water Column: <https://www.dummies.com/article/academics-the-arts/science/environmental-science/the-5-vertical-zones-of-the-oceans-water-column-284232/>
+- [4] Sea and Sky — Layers of the Ocean: <http://www.seasky.org/deep-sea/ocean-layers.html>
+- [5] Wikipedia — Bathypelagic zone: <https://en.wikipedia.org/wiki/Bathypelagic_zone>
+- [6] NOAA Ocean Exploration — How far does light travel in the ocean?: <https://oceanexplorer.noaa.gov/facts/light-distributed.html>
+- [8] Geosciences LibreTexts — Zones of Marine Environments: <https://geo.libretexts.org/Courses/Diablo_Valley_College/OCEAN-101:_Fundamentals_of_Oceanography_(Keddy)/15:_Introduction_to_Marine_Life/15.11:_Zones_of_Marine_Environments>
+- [9] Ingman Marine — Understanding the Pelagic Zone: <https://www.ingmanmarine.com/article/pelagic-zone-101>
+- [10] NOAA Ocean Exploration — What is the deepest-living fish?: <https://oceanexplorer.noaa.gov/ocean-fact/what-is-the-deepest-living-fish/>
+- [11] Natural History Museum (Londres) — Deepest-ever fish filmed at 8,336 m: <https://www.nhm.ac.uk/discover/news/2023/april/deepest-ever-fish-filmed-depth-8336-metres.html>
+- [14] Guinness World Records — Deepest fish: <https://www.guinnessworldrecords.com/world-records/deepest-fish>
 
