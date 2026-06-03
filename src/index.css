@@ -1,7 +1,11 @@
 :root {
     --c-surface: #e8f6ff;
+    --c-surface-deep: #020911;
     --c-ink: #06222b;
+    --c-ink-bright: #e8f6ff;
     --c-accent: #0aa6c2;
+
+    --page-darkness: 0;
 
     --font-display: "Segoe UI", system-ui, sans-serif;
     --font-body: "Segoe UI", system-ui, sans-serif;
@@ -20,10 +24,19 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100%;
-    background: var(--c-surface);
-    color: var(--c-ink);
+    background: color-mix(
+        in srgb,
+        var(--c-surface) calc((1 - var(--page-darkness)) * 100%),
+        var(--c-surface-deep)
+    );
+    color: color-mix(
+        in srgb,
+        var(--c-ink) calc((1 - var(--page-darkness)) * 100%),
+        var(--c-ink-bright)
+    );
     font-family: var(--font-body);
     line-height: 1.5;
+    transition: background-color 120ms linear, color 120ms linear;
 }
 
 img,

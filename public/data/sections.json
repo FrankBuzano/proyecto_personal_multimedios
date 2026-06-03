@@ -1,61 +1,106 @@
 {
-    "title": "Vida marina profunda",
-    "intro": "Un recorrido por las cinco zonas verticales del oceano. A medida que descendemos, la luz se apaga, la presion aumenta y la vida toma formas cada vez mas extranas.",
-    "zones": [
-        {
-            "id": "epipelagica",
-            "name": "Zona epipelagica",
-            "depthRange": "0 - 200 m",
-            "color": "#3ec9e6",
-            "darkness": 0.0,
-            "description": "Zona iluminada por el sol. Aqui ocurre la mayor parte de la fotosintesis marina y vive la mayoria de las especies que conocemos: atunes, delfines, tortugas y fitoplancton.",
-            "svgPlaceholder": "/assets/svg/epipelagica.svg",
-            "audioPlaceholder": "/assets/audio/epipelagica.mp3",
-            "species": ["Atun rojo", "Delfin comun", "Tortuga verde"]
-        },
-        {
-            "id": "mesopelagica",
-            "name": "Zona mesopelagica",
-            "depthRange": "200 - 1000 m",
-            "color": "#1a6f99",
-            "darkness": 0.25,
-            "description": "Zona crepuscular. La luz solar apenas penetra; muchas especies producen su propia luz mediante bioluminiscencia.",
-            "svgPlaceholder": "/assets/svg/mesopelagica.svg",
-            "audioPlaceholder": "/assets/audio/mesopelagica.mp3",
-            "species": ["Pez hacha", "Calamar luciernaga", "Pez linterna"]
-        },
-        {
-            "id": "batipelagica",
-            "name": "Zona batipelagica",
-            "depthRange": "1000 - 4000 m",
-            "color": "#0d3a55",
-            "darkness": 0.55,
-            "description": "Oscuridad total. La presion es enorme y el alimento escaso. Predadores con dientes prominentes y senuelos luminosos dominan este nivel.",
-            "svgPlaceholder": "/assets/svg/batipelagica.svg",
-            "audioPlaceholder": "/assets/audio/batipelagica.mp3",
-            "species": ["Rape abisal", "Calamar gigante", "Pulpo dumbo"]
-        },
-        {
-            "id": "abisopelagica",
-            "name": "Zona abisopelagica",
-            "depthRange": "4000 - 6000 m",
-            "color": "#061f32",
-            "darkness": 0.8,
-            "description": "Llanuras abisales. Temperaturas cercanas al punto de congelacion y vida basada en detritos que caen desde arriba o en quimiosintesis cerca de fuentes hidrotermales.",
-            "svgPlaceholder": "/assets/svg/abisopelagica.svg",
-            "audioPlaceholder": "/assets/audio/abisopelagica.mp3",
-            "species": ["Holoturia abisal", "Pez tripode", "Gusano de tubo"]
-        },
-        {
-            "id": "hadopelagica",
-            "name": "Zona hadopelagica",
-            "depthRange": "6000 - 11000 m",
-            "color": "#020911",
-            "darkness": 1.0,
-            "description": "Las fosas oceanicas. La presion supera las 1000 atmosferas. Aun asi, encontramos anfipodos gigantes y peces caracol adaptados a este extremo.",
-            "svgPlaceholder": "/assets/svg/hadopelagica.svg",
-            "audioPlaceholder": "/assets/audio/hadopelagica.mp3",
-            "species": ["Anfipodo gigante", "Pez caracol de Mariana"]
-        }
-    ]
+  "_meta": {
+    "titulo": "Vida marina: de la superficie a las profundidades",
+    "uso": "Datos para infografia web interactiva. Orden = de menor a mayor profundidad (zona[0] arriba). Renderizar como secciones verticales apiladas o scroll de superficie->fondo.",
+    "campos_por_zona": "id, orden, nombre, nombre_alt (apodo comun), prof_min_m, prof_max_m, luz, temp, presion_atm, ambiente (texto descriptivo para tarjeta), fauna (lista para iconos/cards), dato_curioso, color_sugerido (degradado azul->negro), fuentes (indices al array fuentes[])",
+    "presion_regla": "Aumenta ~1 atm por cada 10 m. Util si quieres animar/calcular dinamicamente.",
+    "nota_color": "Sugerencia de paleta para reforzar la sensacion de descenso. El dev (yo) puede ajustar."
+  },
+
+  "zonas": [
+    {
+      "id": "epipelagica",
+      "orden": 1,
+      "nombre": "Zona epipelagica",
+      "nombre_alt": "Zona de luz solar",
+      "prof_min_m": 0,
+      "prof_max_m": 200,
+      "luz": "Abundante. Unica zona con suficiente luz para fotosintesis.",
+      "temp": "Variable y calida; cambia con clima y latitud (hasta ~20-30 C en tropicos).",
+      "presion_atm": "1-20",
+      "ambiente": "La delgada capa iluminada donde vive casi todo lo que conocemos. Aqui ocurre la mayor parte de la produccion primaria del oceano (el fitoplancton fabrica alimento con luz solar). Acaba en la termoclina, una caida brusca de temperatura.",
+      "fauna": ["Fitoplancton", "Atun", "Delfines", "Tortugas marinas", "Tiburones", "Medusas", "Ballenas (sumergen desde aqui)"],
+      "dato_curioso": "Aporta el grueso del alimento del oceano y de aqui sale casi toda la pesca mundial, pese a ser solo los primeros 200 m.",
+      "color_sugerido": "#3FA9F5",
+      "fuentes": [2, 6, 9]
+    },
+    {
+      "id": "mesopelagica",
+      "orden": 2,
+      "nombre": "Zona mesopelagica",
+      "nombre_alt": "Zona crepuscular (twilight)",
+      "prof_min_m": 200,
+      "prof_max_m": 1000,
+      "luz": "Tenue y decreciente (zona disfotica). Hay algo de luz para ver, pero NO para fotosintesis.",
+      "temp": "Cae con rapidez al cruzar la termoclina; aprox. 4-20 C.",
+      "presion_atm": "20-100",
+      "ambiente": "La penumbra azul. Solo llega cerca del 20% de la produccion primaria de la superficie, asi que los organismos compiten por alimento escaso. Aqui empiezan a verse los destellos de la bioluminiscencia.",
+      "fauna": ["Pez linterna", "Pez hacha", "Calamar / sepia", "Pez vibora (Sloane)", "Pez dragon (stoplight loosejaw)"],
+      "dato_curioso": "Protagoniza la mayor migracion de animales del planeta: cada noche miles de millones de criaturas suben a alimentarse a la superficie y bajan al amanecer.",
+      "color_sugerido": "#1B6CA8",
+      "fuentes": [1, 6, 8, 9]
+    },
+    {
+      "id": "batipelagica",
+      "orden": 3,
+      "nombre": "Zona batipelagica",
+      "nombre_alt": "Zona de medianoche (midnight)",
+      "prof_min_m": 1000,
+      "prof_max_m": 4000,
+      "luz": "Oscuridad total. La unica luz es la que producen los propios animales (bioluminiscencia).",
+      "temp": "Casi constante, ~4 C.",
+      "presion_atm": "100-400",
+      "ambiente": "Oscuridad perpetua y mayor volumen de agua que cualquier otra zona. Sin plantas. Los animales cazan a otros habitantes o esperan la 'nieve marina' (restos que caen desde arriba). Salinidad ~33-35 g/kg.",
+      "fauna": ["Rape abisal (anglerfish)", "Calamar gigante", "Pulpo Dumbo", "Pez tragon (black swallower)", "Cachalotes (cazan calamar aqui)"],
+      "dato_curioso": "Es la zona mas grande del oceano por volumen, y aun asi una de las menos exploradas por la dificultad de bajar tan hondo.",
+      "color_sugerido": "#0B3B5C",
+      "fuentes": [3, 4, 5, 6, 9]
+    },
+    {
+      "id": "abisopelagica",
+      "orden": 4,
+      "nombre": "Zona abisopelagica",
+      "nombre_alt": "El abismo (abyss)",
+      "prof_min_m": 4000,
+      "prof_max_m": 6000,
+      "luz": "Oscuridad absoluta.",
+      "temp": "Cercana a la congelacion, ~2-4 C.",
+      "presion_atm": "400-600",
+      "ambiente": "Frio, negro y aplastante. Muy pocas criaturas resisten. Predominan invertebrados de metabolismo lento, estomagos elasticos y bocas grandes. Cubre la mayor parte del fondo oceanico.",
+      "fauna": ["Pepinos de mar", "Estrellas canasta", "Isopodos gigantes", "Pulpos pequenos", "Camarones de profundidad"],
+      "dato_curioso": "Su nombre viene del griego 'abyssos' = 'sin fondo', porque se creia que el oceano profundo no tenia final. Cubre cerca del 75% del fondo marino.",
+      "color_sugerido": "#06243A",
+      "fuentes": [1, 4, 8]
+    },
+    {
+      "id": "hadopelagica",
+      "orden": 5,
+      "nombre": "Zona hadopelagica",
+      "nombre_alt": "Zona hadal (las fosas)",
+      "prof_min_m": 6000,
+      "prof_max_m": 11000,
+      "luz": "Oscuridad absoluta.",
+      "temp": "Muy fria, ~1-4 C.",
+      "presion_atm": "600-1100",
+      "ambiente": "Las fosas oceanicas, lo mas profundo del planeta. Nombre por Hades, dios griego del inframundo. Presion superior a 1000 atmosferas. El alimento son restos que tardan semanas o meses en hundirse. Hay ~46 habitats hadales, casi todos en el Pacifico.",
+      "fauna": ["Caracol marino abisal (snailfish)", "Anfipodos", "Holoturias (pepinos de mar)", "Bacterias quimiosinteticas"],
+      "dato_curioso": "El punto mas profundo es el Abismo Challenger (fosa de las Marianas), a ~10.935 m. El pez mas profundo jamas filmado fue un snailfish a 8.336 m en la fosa Izu-Ogasawara (2023); sobrevive gracias al TMAO, un compuesto que evita que sus proteinas colapsen por la presion.",
+      "color_sugerido": "#020D16",
+      "fuentes": [1, 2, 6, 10, 11, 14]
+    }
+  ],
+
+  "fuentes": {
+    "1": "Exploring Our Fluid Earth, Univ. of Hawaii at Manoa - Depth Zones | https://manoa.hawaii.edu/exploringourfluidearth/physical/ocean-depths/depth-zones",
+    "2": "Woods Hole Oceanographic Institution - Ocean Zones | https://www.whoi.edu/ocean-learning-hub/ocean-topics/how-the-ocean-works/ocean-zones/",
+    "3": "Dummies - The 5 Vertical Zones of the Ocean's Water Column | https://www.dummies.com/article/academics-the-arts/science/environmental-science/the-5-vertical-zones-of-the-oceans-water-column-284232/",
+    "4": "Sea and Sky - Layers of the Ocean | http://www.seasky.org/deep-sea/ocean-layers.html",
+    "5": "Wikipedia - Bathypelagic zone | https://en.wikipedia.org/wiki/Bathypelagic_zone",
+    "6": "NOAA Ocean Exploration - How far does light travel in the ocean? | https://oceanexplorer.noaa.gov/facts/light-distributed.html",
+    "8": "Geosciences LibreTexts - Zones of Marine Environments | https://geo.libretexts.org/Courses/Diablo_Valley_College/OCEAN-101:_Fundamentals_of_Oceanography_(Keddy)/15:_Introduction_to_Marine_Life/15.11:_Zones_of_Marine_Environments",
+    "9": "Ingman Marine - Understanding the Pelagic Zone | https://www.ingmanmarine.com/article/pelagic-zone-101",
+    "10": "NOAA Ocean Exploration - What is the deepest-living fish? | https://oceanexplorer.noaa.gov/ocean-fact/what-is-the-deepest-living-fish/",
+    "11": "Natural History Museum (Londres) - Deepest-ever fish filmed at 8,336 m | https://www.nhm.ac.uk/discover/news/2023/april/deepest-ever-fish-filmed-depth-8336-metres.html",
+    "14": "Guinness World Records - Deepest fish | https://www.guinnessworldrecords.com/world-records/deepest-fish"
+  }
 }

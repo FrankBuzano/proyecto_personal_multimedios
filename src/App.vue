@@ -1,61 +1,119 @@
 <script setup>
-import { onMounted, ref, computed } from "vue";
+import { onMounted, ref, computed, nextTick } from "vue";
+import ZoneNav from "./components/ZoneNav.vue";
+import { useScrollDarkness } from "./composables/useScrollDarkness.js";
 
 const data = ref(null);
 const error = ref(null);
-const activeZoneId = ref(null);
+const { darkness } = useScrollDarkness();
 
-const activeZone = computed(() => {
-    if (!data.value) return null;
-    return data.value.zones.find((z) => z.id === activeZoneId.value) ?? data.value.zones[0];
-});
+const zones = computed(() => data.value?.zonas ?? []);
+const title = computed(() => data.value?._meta?.titulo ?? "Cargando...");
+
+const navZones = computed(() =>
+    zones.value.map((z) => ({
+        id: z.id,
+        name: z.nombre,
+        depthRange: depthRange(z),
+    })),
+);
+
+function depthRange(zone) {
+    return `${zone.prof_min_m} - ${zone.prof_max_m} m`;
+}
+
+const pruebaSvgUrl = `${import.meta.env.BASE_URL}assets/svg/prueba.svg`;
 
 onMounted(async () => {
     try {
         const res = await fetch(`${import.meta.env.BASE_URL}data/sections.json`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         data.value = await res.json();
-        activeZoneId.value = data.value.zones[0]?.id ?? null;
     } catch (err) {
         error.value = err.message ?? String(err);
     }
 });
 
-function handleActivate(event) {
-    activeZoneId.value = event.detail.id;
+async function scrollToZone({ id }) {
+    await nextTick();
+    const el = document.getElementById(`zona-${id}`);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 </script>
 
 <template>
     <main class="page">
         <header class="page__header">
-            <h1>{{ data?.title ?? "Cargando..." }}</h1>
-            <p v-if="data?.intro" class="page__intro">{{ data.intro }}</p>
+            <h1>{{ title }}</h1>
+            <p class="page__intro">
+                Un descenso por las cinco zonas verticales del oceano: a medida que bajamos, la luz
+                se apaga, la presion aumenta y la vida toma formas cada vez mas extranas.
+            </p>
         </header>
 
         <p v-if="error" role="alert" class="page__error">
             No se pudo cargar la informacion: {{ error }}
         </p>
 
-        <marine-section
-            v-if="activeZone"
-            :zone-id="activeZone.id"
-            :name="activeZone.name"
-            :depth-range="activeZone.depthRange"
-            :accent="activeZone.color"
-            :darkness="activeZone.darkness"
-            @activate="handleActivate"
-        >
-            <p>{{ activeZone.description }}</p>
+        <ZoneNav v-if="zones.length" :zones="navZones" @select="scrollToZone" />
 
-            <template #media>
-                <div class="media-placeholder">
-                    [SVG de la zona "{{ activeZone.name }}" ira aqui]
-                    <br />
-                    [AudioPlayer con narracion ira aqui]
+        <div class="page__zones">
+            <marine-section
+                v-for="zone in zones"
+                :id="`zona-${zone.id}`"
+                :key="zone.id"
+                :zone-id="zone.id"
+                :name="zone.nombre"
+                :depth-range="depthRange(zone)"
+                :accent="zone.color_sugerido"
+                :darkness="darkness"
+            >
+                <p class="zone__alt">{{ zone.nombre_alt }}</p>
+                <p class="zone__ambiente">{{ zone.ambiente }}</p>
+
+                <dl class="zone__facts">
+                    <div class="zone__fact">
+                        <dt>Luz</dt>
+                        <dd>{{ zone.luz }}</dd>
+                    </div>
+                    <div class="zone__fact">
+                        <dt>Temperatura</dt>
+                        <dd>{{ zone.temp }}</dd>
+                    </div>
+                    <div class="zone__fact">
+                        <dt>Presion</dt>
+                        <dd>{{ zone.presion_atm }} atm</dd>
+                    </div>
+                </dl>
+
+                <div class="zone__fauna">
+                    <h3 class="zone__fauna-title">Fauna caracteristica</h3>
+                    <ul class="zone__fauna-list">
+                        <li v-for="especie in zone.fauna" :key="especie" class="zone__fauna-chip">
+                            {{ especie }}
+                        </li>
+                    </ul>
                 </div>
-            </template>
-        </marine-section>
+
+                <aside class="zone__curioso">
+                    <strong>Dato curioso:</strong> {{ zone.dato_curioso }}
+                </aside>
+
+                <img
+                    v-if="zone.id === 'epipelagica'"
+                    slot="media"
+                    class="zone__svg"
+                    :src="pruebaSvgUrl"
+                    :alt="`Ilustracion de prueba para ${zone.nombre}`"
+                    decoding="async"
+                />
+                <div v-else slot="media" class="media-placeholder">
+                    [SVG ilustrativo de "{{ zone.nombre }}" ira aqui]
+                    <br />
+                    [Pista de audio ambiente opcional]
+                </div>
+            </marine-section>
+        </div>
     </main>
 </template>
 
@@ -83,6 +141,85 @@ function handleActivate(event) {
     border-radius: 0.5rem;
 }
 
+.page__zones {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+}
+
+.zone__alt {
+    margin: 0;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.75;
+}
+
+.zone__ambiente {
+    margin: 0;
+    font-size: 1.02rem;
+    line-height: 1.55;
+}
+
+.zone__facts {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0.85rem 1rem;
+    background: rgba(0, 0, 0, 0.18);
+    border-radius: 0.5rem;
+}
+
+.zone__fact {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: 0.5rem;
+    align-items: baseline;
+}
+
+.zone__fact dt {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    opacity: 0.85;
+}
+
+.zone__fact dd {
+    margin: 0;
+}
+
+.zone__fauna-title {
+    margin: 0 0 0.5rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+.zone__fauna-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.zone__fauna-chip {
+    padding: 0.25rem 0.6rem;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.zone__curioso {
+    border-left: 4px solid currentColor;
+    padding: 0.6rem 0.9rem;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-size: 0.95rem;
+}
+
 .media-placeholder {
     border: 2px dashed currentColor;
     border-radius: 0.5rem;
@@ -90,5 +227,17 @@ function handleActivate(event) {
     text-align: center;
     opacity: 0.6;
     font-style: italic;
+}
+
+.zone__svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 200px;
+    max-height: 320px;
+    object-fit: contain;
+    border-radius: 0.5rem;
+    border: 2px dashed rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.06);
 }
 </style>
