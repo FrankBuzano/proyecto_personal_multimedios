@@ -11,13 +11,28 @@
     - Opciones de configuración (`shadowRootMode`, `shadowRoot.delegatesFocus`).
 
 
-## Vue 3
+## Vue 3 y plataforma web
+
+### Vue 3 (framework)
 
 - Documentación oficial — Composition API y `<script setup>`: <https://vuejs.org/guide/introduction.html>
 - API: `defineCustomElement` (Custom Elements con Vue): <https://vuejs.org/guide/extras/web-components.html>
 - API: `defineProps`, `defineEmits`, validación de eventos: <https://vuejs.org/api/sfc-script-setup.html>
 - Reactividad: `ref` / `computed`: <https://vuejs.org/guide/essentials/reactivity-fundamentals.html>
 - `onMounted` y ciclo de vida: <https://vuejs.org/guide/essentials/lifecycle.html>
+- Slots y `<slot name="...">`: <https://vuejs.org/guide/components/slots.html>
+- Renderizado condicional con `v-if` / `v-else` y `<template v-for>`: <https://vuejs.org/guide/essentials/conditional.html>
+- Modificador `.prop` en bindings para pasar valores como propiedad (necesario al pasar arrays/objetos a custom elements): <https://vuejs.org/guide/extras/web-components.html#passing-dom-properties>
+- Manejo de Shadow DOM y CSS Parts con `defineCustomElement`: <https://vuejs.org/guide/extras/web-components.html#sfc-as-custom-element>
+
+### Plataforma web (estándares HTML/CSS)
+
+- MDN — `<details>` y `<summary>` (acordeón nativo, accesible y sin JS): <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details>
+- MDN — CSS Grid Layout (`grid-template-columns`, `grid-column`, `gap`): <https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout>
+- MDN — `::slotted()` (estilar contenido de un slot desde el Shadow DOM): <https://developer.mozilla.org/en-US/docs/Web/CSS/::slotted>
+- MDN — `aspect-ratio` (para encuadrar imágenes de zona sin saltos de layout): <https://developer.mozilla.org/en-US/docs/Web/CSS/aspect-ratio>
+- MDN — `color-mix()` (interpolación de colores usada para fondo, texto y bordes según `darkness`): <https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color-mix>
+- web.dev — Patrones accesibles con `<details>`: <https://web.dev/learn/html/details>
 
 ## Vida marina (datos de la infografía)
 
@@ -33,5 +48,10 @@ Fuentes utilizadas en `public/data/sections.json`. Los identificadores numérico
 - [9] Ingman Marine — Understanding the Pelagic Zone: <https://www.ingmanmarine.com/article/pelagic-zone-101>
 - [10] NOAA Ocean Exploration — What is the deepest-living fish?: <https://oceanexplorer.noaa.gov/ocean-fact/what-is-the-deepest-living-fish/>
 - [11] Natural History Museum (Londres) — Deepest-ever fish filmed at 8,336 m: <https://www.nhm.ac.uk/discover/news/2023/april/deepest-ever-fish-filmed-depth-8336-metres.html>
+- [12] EarthSky — How much do oceans add to world's oxygen?: <https://earthsky.org/earth/how-much-do-oceans-add-to-worlds-oxygen/>
+- [13] NOAA Ocean Service — What is a thermocline?: <https://oceanservice.noaa.gov/facts/thermocline.html>
 - [14] Guinness World Records — Deepest fish: <https://www.guinnessworldrecords.com/world-records/deepest-fish>
+- [15] Wikipedia — Underwater camouflage (countershading en peces pelágicos): <https://en.wikipedia.org/wiki/Underwater_camouflage>
+- [16] NOAA — Ocean acidification (educación y datos): <https://www.noaa.gov/education/resource-collections/ocean-coasts/ocean-acidification>
+- [17] National Weather Service JetStream — Layers of the Ocean (capa de mezcla y termoclina): <https://w2.weather.gov/jetstream/layers_ocean>
 

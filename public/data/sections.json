@@ -22,7 +22,33 @@
       "fauna": ["Fitoplancton", "Atun", "Delfines", "Tortugas marinas", "Tiburones", "Medusas", "Ballenas (sumergen desde aqui)"],
       "dato_curioso": "Aporta el grueso del alimento del oceano y de aqui sale casi toda la pesca mundial, pese a ser solo los primeros 200 m.",
       "color_sugerido": "#3FA9F5",
-      "fuentes": [2, 6, 9]
+      "secciones_extra": [
+        {
+          "id": "subdivisiones",
+          "titulo": "Subdivisiones",
+          "contenido": "Dentro de los primeros 200 m hay dos sub-capas: la capa de mezcla (mixed layer), donde el viento y las olas mantienen la temperatura casi uniforme, y la termoclina estacional, una franja en la que la temperatura cae rapidamente con la profundidad. El espesor de cada capa varia con la estacion y la latitud.",
+          "fuentes": [13, 17]
+        },
+        {
+          "id": "produccion_primaria",
+          "titulo": "Productividad y oxigeno",
+          "contenido": "El fitoplancton de esta zona realiza la fotosintesis que sostiene casi toda la cadena alimentaria marina. Se estima que entre el 50% y el 80% del oxigeno atmosferico proviene de organismos foto sinteticos del oceano, la mayoria viviendo en la zona epipelagica.",
+          "fuentes": [12]
+        },
+        {
+          "id": "adaptaciones",
+          "titulo": "Adaptaciones: contrasombreado",
+          "contenido": "Muchos peces de mar abierto presentan contrasombreado (countershading): dorso oscuro y vientre claro. Vistos desde arriba se confunden con el agua profunda; vistos desde abajo se mezclan con la luz que baja. Atunes, tiburones y caballas usan esta estrategia para esquivar depredadores en una zona sin nada donde esconderse.",
+          "fuentes": [15]
+        },
+        {
+          "id": "amenazas",
+          "titulo": "Amenazas humanas",
+          "contenido": "Es la franja oceanica mas expuesta a la actividad humana: sobrepesca, calentamiento del agua, microplasticos que el zooplancton confunde con alimento y acidificacion (la acidez del oceano subio cerca de 30% desde la revolucion industrial, dificultando la formacion de conchas y corales).",
+          "fuentes": [16]
+        }
+      ],
+      "fuentes": [2, 6, 9, 12, 13, 15, 16, 17]
     },
     {
       "id": "mesopelagica",
@@ -101,6 +127,11 @@
     "9": "Ingman Marine - Understanding the Pelagic Zone | https://www.ingmanmarine.com/article/pelagic-zone-101",
     "10": "NOAA Ocean Exploration - What is the deepest-living fish? | https://oceanexplorer.noaa.gov/ocean-fact/what-is-the-deepest-living-fish/",
     "11": "Natural History Museum (Londres) - Deepest-ever fish filmed at 8,336 m | https://www.nhm.ac.uk/discover/news/2023/april/deepest-ever-fish-filmed-depth-8336-metres.html",
-    "14": "Guinness World Records - Deepest fish | https://www.guinnessworldrecords.com/world-records/deepest-fish"
+    "12": "EarthSky - How much do oceans add to world's oxygen? | https://earthsky.org/earth/how-much-do-oceans-add-to-worlds-oxygen/",
+    "13": "NOAA Ocean Service - What is a thermocline? | https://oceanservice.noaa.gov/facts/thermocline.html",
+    "14": "Guinness World Records - Deepest fish | https://www.guinnessworldrecords.com/world-records/deepest-fish",
+    "15": "Wikipedia - Underwater camouflage | https://en.wikipedia.org/wiki/Underwater_camouflage",
+    "16": "NOAA - Ocean acidification | https://www.noaa.gov/education/resource-collections/ocean-coasts/ocean-acidification",
+    "17": "National Weather Service JetStream - Layers of the Ocean | https://w2.weather.gov/jetstream/layers_ocean"
   }
 }
