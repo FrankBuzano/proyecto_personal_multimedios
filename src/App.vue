@@ -22,7 +22,22 @@ function depthRange(zone) {
     return `${zone.prof_min_m} - ${zone.prof_max_m} m`;
 }
 
-const pruebaSvgUrl = `${import.meta.env.BASE_URL}assets/svg/prueba.svg`;
+function zoneBlocks(zone) {
+    const base = [
+        { id: "luz", titulo: "Luz", contenido: zone.luz },
+        { id: "temp", titulo: "Temperatura", contenido: zone.temp },
+        { id: "presion", titulo: "Presion", contenido: `${zone.presion_atm} atm` },
+        { id: "curioso", titulo: "Dato curioso", contenido: zone.dato_curioso },
+    ];
+    const extra = (zone.secciones_extra ?? []).map((s) => ({
+        id: s.id,
+        titulo: s.titulo,
+        contenido: s.contenido,
+    }));
+    return [...base, ...extra];
+}
+
+const epipelagicaImgUrl = `${import.meta.env.BASE_URL}assets/svg/zona-epipelagica.png`;
 
 onMounted(async () => {
     try {
@@ -58,61 +73,75 @@ async function scrollToZone({ id }) {
         <ZoneNav v-if="zones.length" :zones="navZones" @select="scrollToZone" />
 
         <div class="page__zones">
-            <marine-section
-                v-for="zone in zones"
-                :id="`zona-${zone.id}`"
-                :key="zone.id"
-                :zone-id="zone.id"
-                :name="zone.nombre"
-                :depth-range="depthRange(zone)"
-                :accent="zone.color_sugerido"
-                :darkness="darkness"
-            >
-                <p class="zone__alt">{{ zone.nombre_alt }}</p>
-                <p class="zone__ambiente">{{ zone.ambiente }}</p>
-
-                <dl class="zone__facts">
-                    <div class="zone__fact">
-                        <dt>Luz</dt>
-                        <dd>{{ zone.luz }}</dd>
-                    </div>
-                    <div class="zone__fact">
-                        <dt>Temperatura</dt>
-                        <dd>{{ zone.temp }}</dd>
-                    </div>
-                    <div class="zone__fact">
-                        <dt>Presion</dt>
-                        <dd>{{ zone.presion_atm }} atm</dd>
-                    </div>
-                </dl>
-
-                <div class="zone__fauna">
-                    <h3 class="zone__fauna-title">Fauna caracteristica</h3>
-                    <ul class="zone__fauna-list">
-                        <li v-for="especie in zone.fauna" :key="especie" class="zone__fauna-chip">
-                            {{ especie }}
-                        </li>
-                    </ul>
-                </div>
-
-                <aside class="zone__curioso">
-                    <strong>Dato curioso:</strong> {{ zone.dato_curioso }}
-                </aside>
-
-                <img
+            <template v-for="zone in zones" :key="zone.id">
+                <marine-zone
                     v-if="zone.id === 'epipelagica'"
-                    slot="media"
-                    class="zone__svg"
-                    :src="pruebaSvgUrl"
-                    :alt="`Ilustracion de prueba para ${zone.nombre}`"
-                    decoding="async"
-                />
-                <div v-else slot="media" class="media-placeholder">
-                    [SVG ilustrativo de "{{ zone.nombre }}" ira aqui]
-                    <br />
-                    [Pista de audio ambiente opcional]
-                </div>
-            </marine-section>
+                    :id="`zona-${zone.id}`"
+                    :zone-id="zone.id"
+                    :name="zone.nombre"
+                    :name-alt="zone.nombre_alt"
+                    :depth-range="depthRange(zone)"
+                    :ambiente="zone.ambiente"
+                    :fauna.prop="zone.fauna"
+                    :blocks.prop="zoneBlocks(zone)"
+                    :accent="zone.color_sugerido"
+                    :darkness="darkness"
+                >
+                    <img
+                        slot="image"
+                        :src="epipelagicaImgUrl"
+                        :alt="`Ilustracion de la zona ${zone.nombre}`"
+                        decoding="async"
+                    />
+                </marine-zone>
+
+                <marine-section
+                    v-else
+                    :id="`zona-${zone.id}`"
+                    :zone-id="zone.id"
+                    :name="zone.nombre"
+                    :depth-range="depthRange(zone)"
+                    :accent="zone.color_sugerido"
+                    :darkness="darkness"
+                >
+                    <p class="zone__alt">{{ zone.nombre_alt }}</p>
+                    <p class="zone__ambiente">{{ zone.ambiente }}</p>
+
+                    <dl class="zone__facts">
+                        <div class="zone__fact">
+                            <dt>Luz</dt>
+                            <dd>{{ zone.luz }}</dd>
+                        </div>
+                        <div class="zone__fact">
+                            <dt>Temperatura</dt>
+                            <dd>{{ zone.temp }}</dd>
+                        </div>
+                        <div class="zone__fact">
+                            <dt>Presion</dt>
+                            <dd>{{ zone.presion_atm }} atm</dd>
+                        </div>
+                    </dl>
+
+                    <div class="zone__fauna">
+                        <h3 class="zone__fauna-title">Fauna caracteristica</h3>
+                        <ul class="zone__fauna-list">
+                            <li v-for="especie in zone.fauna" :key="especie" class="zone__fauna-chip">
+                                {{ especie }}
+                            </li>
+                        </ul>
+                    </div>
+
+                    <aside class="zone__curioso">
+                        <strong>Dato curioso:</strong> {{ zone.dato_curioso }}
+                    </aside>
+
+                    <div slot="media" class="media-placeholder">
+                        [SVG ilustrativo de "{{ zone.nombre }}" ira aqui]
+                        <br />
+                        [Pista de audio ambiente opcional]
+                    </div>
+                </marine-section>
+            </template>
         </div>
     </main>
 </template>
