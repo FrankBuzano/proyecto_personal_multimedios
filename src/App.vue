@@ -37,7 +37,10 @@ function zoneBlocks(zone) {
     return [...base, ...extra];
 }
 
-const epipelagicaImgUrl = `${import.meta.env.BASE_URL}assets/svg/zona-epipelagica.png`;
+const zoneImages = {
+    epipelagica: `${import.meta.env.BASE_URL}assets/svg/zona-epipelagica.png`,
+    batipelagica: `${import.meta.env.BASE_URL}assets/svg/zona-batipelagica.png`,
+};
 
 onMounted(async () => {
     try {
@@ -73,75 +76,28 @@ async function scrollToZone({ id }) {
         <ZoneNav v-if="zones.length" :zones="navZones" @select="scrollToZone" />
 
         <div class="page__zones">
-            <template v-for="zone in zones" :key="zone.id">
-                <marine-zone
-                    v-if="zone.id === 'epipelagica'"
-                    :id="`zona-${zone.id}`"
-                    :zone-id="zone.id"
-                    :name="zone.nombre"
-                    :name-alt="zone.nombre_alt"
-                    :depth-range="depthRange(zone)"
-                    :ambiente="zone.ambiente"
-                    :fauna.prop="zone.fauna"
-                    :blocks.prop="zoneBlocks(zone)"
-                    :accent="zone.color_sugerido"
-                    :darkness="darkness"
-                >
-                    <img
-                        slot="image"
-                        :src="epipelagicaImgUrl"
-                        :alt="`Ilustracion de la zona ${zone.nombre}`"
-                        decoding="async"
-                    />
-                </marine-zone>
-
-                <marine-section
-                    v-else
-                    :id="`zona-${zone.id}`"
-                    :zone-id="zone.id"
-                    :name="zone.nombre"
-                    :depth-range="depthRange(zone)"
-                    :accent="zone.color_sugerido"
-                    :darkness="darkness"
-                >
-                    <p class="zone__alt">{{ zone.nombre_alt }}</p>
-                    <p class="zone__ambiente">{{ zone.ambiente }}</p>
-
-                    <dl class="zone__facts">
-                        <div class="zone__fact">
-                            <dt>Luz</dt>
-                            <dd>{{ zone.luz }}</dd>
-                        </div>
-                        <div class="zone__fact">
-                            <dt>Temperatura</dt>
-                            <dd>{{ zone.temp }}</dd>
-                        </div>
-                        <div class="zone__fact">
-                            <dt>Presion</dt>
-                            <dd>{{ zone.presion_atm }} atm</dd>
-                        </div>
-                    </dl>
-
-                    <div class="zone__fauna">
-                        <h3 class="zone__fauna-title">Fauna caracteristica</h3>
-                        <ul class="zone__fauna-list">
-                            <li v-for="especie in zone.fauna" :key="especie" class="zone__fauna-chip">
-                                {{ especie }}
-                            </li>
-                        </ul>
-                    </div>
-
-                    <aside class="zone__curioso">
-                        <strong>Dato curioso:</strong> {{ zone.dato_curioso }}
-                    </aside>
-
-                    <div slot="media" class="media-placeholder">
-                        [SVG ilustrativo de "{{ zone.nombre }}" ira aqui]
-                        <br />
-                        [Pista de audio ambiente opcional]
-                    </div>
-                </marine-section>
-            </template>
+            <marine-zone
+                v-for="zone in zones"
+                :key="zone.id"
+                :id="`zona-${zone.id}`"
+                :zone-id="zone.id"
+                :name="zone.nombre"
+                :name-alt="zone.nombre_alt"
+                :depth-range="depthRange(zone)"
+                :ambiente="zone.ambiente"
+                :fauna.prop="zone.fauna"
+                :blocks.prop="zoneBlocks(zone)"
+                :accent="zone.color_sugerido"
+                :darkness="darkness"
+            >
+                <img
+                    v-if="zoneImages[zone.id]"
+                    slot="image"
+                    :src="zoneImages[zone.id]"
+                    :alt="`Ilustracion de la zona ${zone.nombre}`"
+                    decoding="async"
+                />
+            </marine-zone>
         </div>
     </main>
 </template>
@@ -174,99 +130,5 @@ async function scrollToZone({ id }) {
     display: grid;
     gap: 1.25rem;
     margin-top: 1.5rem;
-}
-
-.zone__alt {
-    margin: 0;
-    font-size: 0.95rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    opacity: 0.75;
-}
-
-.zone__ambiente {
-    margin: 0;
-    font-size: 1.02rem;
-    line-height: 1.55;
-}
-
-.zone__facts {
-    display: grid;
-    gap: 0.75rem;
-    margin: 0;
-    padding: 0.85rem 1rem;
-    background: rgba(0, 0, 0, 0.18);
-    border-radius: 0.5rem;
-}
-
-.zone__fact {
-    display: grid;
-    grid-template-columns: 8rem 1fr;
-    gap: 0.5rem;
-    align-items: baseline;
-}
-
-.zone__fact dt {
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    opacity: 0.85;
-}
-
-.zone__fact dd {
-    margin: 0;
-}
-
-.zone__fauna-title {
-    margin: 0 0 0.5rem;
-    font-size: 0.95rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    opacity: 0.85;
-}
-
-.zone__fauna-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-}
-
-.zone__fauna-chip {
-    padding: 0.25rem 0.6rem;
-    border: 1px solid currentColor;
-    border-radius: 999px;
-    font-size: 0.88rem;
-    background: rgba(255, 255, 255, 0.06);
-}
-
-.zone__curioso {
-    border-left: 4px solid currentColor;
-    padding: 0.6rem 0.9rem;
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 0 0.5rem 0.5rem 0;
-    font-size: 0.95rem;
-}
-
-.media-placeholder {
-    border: 2px dashed currentColor;
-    border-radius: 0.5rem;
-    padding: 2rem 1rem;
-    text-align: center;
-    opacity: 0.6;
-    font-style: italic;
-}
-
-.zone__svg {
-    display: block;
-    width: 100%;
-    height: auto;
-    min-height: 200px;
-    max-height: 320px;
-    object-fit: contain;
-    border-radius: 0.5rem;
-    border: 2px dashed rgba(255, 255, 255, 0.4);
-    background: rgba(255, 255, 255, 0.06);
 }
 </style>
