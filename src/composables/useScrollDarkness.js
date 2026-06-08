@@ -1,12 +1,10 @@
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
-/**
- * Devuelve un ref reactivo `darkness` con valor 0..1 segun el scroll vertical
- * de la pagina (0 = arriba del todo, 1 = al fondo). Ademas escribe el mismo
- * valor en la variable CSS --page-darkness sobre <html>, para que cualquier
- * estilo del documento (fondo, texto, etc.) pueda reaccionar sin necesidad
- * de pasar el ref por props.
- */
+function smoothstep(edge0, edge1, x) {
+    const t = Math.min(1, Math.max(0, (x - edge0) / (edge1 - edge0)));
+    return t * t * (3 - 2 * t);
+}
+
 export function useScrollDarkness() {
     const darkness = ref(0);
     let rafId = 0;
@@ -19,6 +17,8 @@ export function useScrollDarkness() {
         const clamped = Math.min(1, Math.max(0, raw));
         darkness.value = clamped;
         doc.style.setProperty("--page-darkness", clamped.toFixed(4));
+        doc.style.setProperty("--text-light", smoothstep(0, 0.5, clamped).toFixed(4));
+        doc.style.setProperty("--bg-dark", smoothstep(0.1, 0.65, clamped).toFixed(4));
     }
 
     function onScroll() {

@@ -83,8 +83,8 @@ const sectionStyle = computed(() => ({
     --accent: #0aa6c2;
     --darkness: 0;
 
-    --soft: color-mix(in srgb, currentColor 8%, transparent);
-    --soft-strong: color-mix(in srgb, currentColor 16%, transparent);
+    --soft: rgba(0, 0, 0, calc(0.05 + var(--bg-dark, 0) * 0.35));
+    --soft-strong: rgba(0, 0, 0, calc(0.11 + var(--bg-dark, 0) * 0.38));
     --line: color-mix(in srgb, currentColor 22%, transparent);
 }
 
@@ -142,7 +142,10 @@ const sectionStyle = computed(() => ({
     font-size: clamp(1.7rem, 4vw, 2.5rem);
     line-height: 1.05;
     letter-spacing: 0.005em;
-    text-shadow: 0 1px 2px color-mix(in srgb, var(--c-surface, #a8d8f0) 70%, transparent);
+    text-shadow:
+        0 1px 2px color-mix(in srgb, var(--c-surface, #a8d8f0) calc((1 - var(--text-light, 0)) * 70%), transparent),
+        0 0 10px color-mix(in srgb, #000 calc(var(--text-light, 0) * 90%), transparent),
+        0 2px 4px color-mix(in srgb, #000 calc(var(--text-light, 0) * 80%), transparent);
 }
 
 .zone__sub {
@@ -151,7 +154,9 @@ const sectionStyle = computed(() => ({
     flex-wrap: wrap;
     gap: 0.5rem;
     font-size: 0.9rem;
-    opacity: 0.85;
+    opacity: 0.95;
+    text-shadow:
+        0 1px 2px color-mix(in srgb, #000 calc(var(--text-light, 0) * 70%), transparent);
 }
 
 .zone__alt {
@@ -203,7 +208,12 @@ const sectionStyle = computed(() => ({
     border-left: 2px solid color-mix(in srgb, var(--accent) 70%, transparent);
     padding: 0.55rem 0.9rem 0.55rem 0.9rem;
     margin-bottom: 1.6rem;
-    background: color-mix(in srgb, var(--c-surface, #a8d8f0) 75%, transparent);
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, calc(var(--bg-dark, 0) * 0.45)),
+            rgba(0, 0, 0, calc(var(--bg-dark, 0) * 0.45))
+        ),
+        color-mix(in srgb, var(--c-surface, #a8d8f0) 75%, transparent);
     border-radius: 0 0.4rem 0.4rem 0;
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
@@ -222,7 +232,7 @@ const sectionStyle = computed(() => ({
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.14em;
-    opacity: 0.78;
+    opacity: 0.95;
     margin-bottom: 0.45rem;
 }
 
@@ -246,7 +256,12 @@ const sectionStyle = computed(() => ({
     border: 1px solid var(--line);
     border-radius: 999px;
     font-size: 0.85rem;
-    background: color-mix(in srgb, var(--c-surface, #a8d8f0) 65%, transparent);
+    background:
+        linear-gradient(
+            rgba(0, 0, 0, calc(var(--bg-dark, 0) * 0.42)),
+            rgba(0, 0, 0, calc(var(--bg-dark, 0) * 0.42))
+        ),
+        color-mix(in srgb, var(--c-surface, #a8d8f0) 65%, transparent);
 }
 
 .zone__details {
@@ -356,6 +371,25 @@ const sectionStyle = computed(() => ({
 @media (min-width: 1000px) {
     .zone__bg {
         width: min(44%, 28rem);
+    }
+}
+
+@keyframes zone-bg-float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-10px) rotate(0.6deg); }
+}
+
+@keyframes zone-bg-shimmer {
+    0%, 100% { filter: brightness(1) saturate(1); }
+    50%      { filter: brightness(1.08) saturate(1.06); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .zone__bg {
+        animation:
+            zone-bg-float 7s ease-in-out infinite,
+            zone-bg-shimmer 11s ease-in-out infinite;
+        transform-origin: top right;
     }
 }
 </style>
