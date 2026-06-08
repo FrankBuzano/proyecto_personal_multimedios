@@ -6,6 +6,8 @@
     --c-accent: #0aa6c2;
 
     --page-darkness: 0;
+    --text-light: 0;
+    --bg-dark: 0;
 
     --font-display: "Segoe UI", system-ui, sans-serif;
     --font-body: "Segoe UI", system-ui, sans-serif;
@@ -26,12 +28,12 @@ body {
     min-height: 100%;
     background: color-mix(
         in srgb,
-        var(--c-surface) calc((1 - var(--page-darkness)) * 100%),
+        var(--c-surface) calc((1 - var(--bg-dark)) * 100%),
         var(--c-surface-deep)
     );
     color: color-mix(
         in srgb,
-        var(--c-ink) calc((1 - var(--page-darkness)) * 100%),
+        var(--c-ink) calc((1 - var(--text-light)) * 100%),
         var(--c-ink-bright)
     );
     font-family: var(--font-body);
