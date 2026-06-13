@@ -54,4 +54,13 @@ Fuentes utilizadas en `public/data/sections.json`. Los identificadores numérico
 - [15] Wikipedia — Underwater camouflage (countershading en peces pelágicos): <https://en.wikipedia.org/wiki/Underwater_camouflage>
 - [16] NOAA — Ocean acidification (educación y datos): <https://www.noaa.gov/education/resource-collections/ocean-coasts/ocean-acidification>
 - [17] National Weather Service JetStream — Layers of the Ocean (capa de mezcla y termoclina): <https://w2.weather.gov/jetstream/layers_ocean>
+- [18] Wikipedia — Bioluminescence (mecanismo luciferina/luciferasa, prevalencia en el mesopelágico, contra-iluminación): <https://en.wikipedia.org/wiki/Bioluminescence>
+- [19] Wikipedia — Diel vertical migration (migración diaria del zooplancton y pequeños nectónicos; bomba biológica): <https://en.wikipedia.org/wiki/Diel_vertical_migration>
+- [20] NOAA Ocean Exploration — What is marine snow?: <https://oceanexplorer.noaa.gov/facts/marine-snow.html>
+- [21] Wikipedia — Anglerfish (parasitismo sexual del macho enano, *Ceratiidae*): <https://en.wikipedia.org/wiki/Anglerfish>
+- [22] Wikipedia — Abyssal plain (geología y biodiversidad de las llanuras abisales): <https://en.wikipedia.org/wiki/Abyssal_plain>
+- [23] Wikipedia — Whale fall (ecosistemas efímeros sobre cadáveres de cetáceos): <https://en.wikipedia.org/wiki/Whale_fall>
+- [24] The Nippon Foundation–GEBCO Seabed 2030 Project (objetivo: mapear el 100% del fondo oceánico para 2030): <https://seabed2030.org/>
+- [25] Wikipedia — Deep scattering layer (capa de dispersión profunda detectada por sonar): <https://en.wikipedia.org/wiki/Deep_scattering_layer>
+- [26] MBARI — Barreleye, *Macropinna microstoma* (pez con cabeza transparente y ojos tubulares): <https://www.mbari.org/animal/barreleye/>
 

@@ -42,12 +42,3 @@ pnpm preview      # previsualizar el build
 └── README.md
 ```
 
-> **Nota**: los archivos marcados como *skeleton* tienen su contrato (props, emits, API) definido
-> pero la lógica todavía no está implementada. Se irán completando en las próximas iteraciones.
-
-## Decisiones de diseño clave
-
-1. **Híbrido SFC + Custom Element**: la "shell" (`App.vue`) es un SFC normal; los componentes públicos reutilizables se exponen como custom elements. Cumplimos el requisito de WebComponents *de verdad* sin tener que renunciar al ecosistema Vue.
-2. **JSON en `public/data/`**: queda servido como recurso estático en dev y en build, así `fetch()` funciona con la misma URL en ambos entornos.
-3. **Theming por CSS custom properties + `::part()`**: las custom properties atraviesan el Shadow Boundary, así que pasar `--darkness` desde el host es suficiente para tematizar el interior sin romper la encapsulación.
-4. **Sin Tailwind/Bootstrap por ahora**: el efecto visual depende de variables CSS dinámicas controladas por scroll; un framework de utilidades estorbaría más que ayudaría. Si se quiere agregar luego, no rompe nada.

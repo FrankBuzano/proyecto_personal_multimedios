@@ -64,7 +64,33 @@
       "fauna": ["Pez linterna", "Pez hacha", "Calamar / sepia", "Pez vibora (Sloane)", "Pez dragon (stoplight loosejaw)"],
       "dato_curioso": "Protagoniza la mayor migracion de animales del planeta: cada noche miles de millones de criaturas suben a alimentarse a la superficie y bajan al amanecer.",
       "color_sugerido": "#1B6CA8",
-      "fuentes": [1, 6, 8, 9]
+      "secciones_extra": [
+        {
+          "id": "bioluminiscencia",
+          "titulo": "Bioluminiscencia",
+          "contenido": "Cerca del 76% de las especies del mesopelagico producen su propia luz. Lo logran con dos compuestos, luciferina y luciferasa, que al reaccionar liberan luz fria sin calor. La usan para atraer presas, asustar depredadores, comunicarse con su misma especie y como contra-iluminacion: emiten luz desde el vientre para no proyectar silueta oscura contra la claridad que baja desde la superficie.",
+          "fuentes": [18]
+        },
+        {
+          "id": "migracion_vertical",
+          "titulo": "La migracion mas grande del planeta",
+          "contenido": "Cada noche, miles de millones de peces, calamares y krill suben desde el mesopelagico hasta la superficie para alimentarse al amparo de la oscuridad, y al amanecer descienden a esconderse. Es la mayor migracion de animales del planeta y forma parte de la 'bomba biologica' que mueve carbono desde la superficie al oceano profundo cuando esos animales defecan o mueren abajo.",
+          "fuentes": [19, 9]
+        },
+        {
+          "id": "ojos_especializados",
+          "titulo": "Ojos hechos para la penumbra",
+          "contenido": "Los habitantes del mesopelagico suelen tener ojos enormes en relacion al cuerpo, a menudo tubulares y orientados hacia arriba, para captar la poca luz que baja. La retina esta dominada por bastones extra sensibles a longitudes de onda azules (la unica banda que llega hasta aqui). El barreleye (Macropinna microstoma) lleva la adaptacion al extremo: tiene la cabeza transparente y ojos verdes que rotan dentro del craneo.",
+          "fuentes": [26]
+        },
+        {
+          "id": "deep_scattering_layer",
+          "titulo": "Capa de dispersion profunda",
+          "contenido": "Durante la Segunda Guerra Mundial los sonares detectaban un 'fondo falso' que subia al anochecer y bajaba al amanecer. Era la Deep Scattering Layer: una banda densa de peces linterna, krill y calamares mesopelagicos moviendose en bloque. Estudios recientes estiman que la biomasa de peces mesopelagicos supera con creces a la del resto de la pesca mundial combinada.",
+          "fuentes": [25]
+        }
+      ],
+      "fuentes": [1, 6, 8, 9, 18, 19, 25, 26]
     },
     {
       "id": "batipelagica",
@@ -80,7 +106,33 @@
       "fauna": ["Rape abisal (anglerfish)", "Calamar gigante", "Pulpo Dumbo", "Pez tragon (black swallower)", "Cachalotes (cazan calamar aqui)"],
       "dato_curioso": "Es la zona mas grande del oceano por volumen, y aun asi una de las menos exploradas por la dificultad de bajar tan hondo.",
       "color_sugerido": "#0B3B5C",
-      "fuentes": [3, 4, 5, 6, 9]
+      "secciones_extra": [
+        {
+          "id": "nieve_marina",
+          "titulo": "Nieve marina",
+          "contenido": "Sin luz no hay produccion primaria propia: el alimento llega como 'nieve marina', particulas que caen desde arriba (plancton muerto, escamas de piel, heces, polvo). Cada particula puede tardar semanas en bajar hasta el fondo. Es la base de la cadena alimenticia del oceano profundo y un componente clave del ciclo global del carbono.",
+          "fuentes": [20, 5]
+        },
+        {
+          "id": "adaptaciones_batipelagico",
+          "titulo": "Cuerpos hechos para no gastar",
+          "contenido": "Como casi no llega comida, los animales batipelagicos minimizan el gasto energetico: musculos blandos, huesos ligeros o casi ausentes y metabolismo lentisimo. Compensan con bocas enormes y estomagos elasticos que les permiten tragar presas casi tan grandes como ellos cuando aparece una. El pez tragon (Chiasmodon niger, 'black swallower') puede engullir presas mas grandes que su propio cuerpo.",
+          "fuentes": [5, 9]
+        },
+        {
+          "id": "reproduccion_rape",
+          "titulo": "Rapes: parasitismo sexual",
+          "contenido": "Encontrar pareja en total oscuridad es casi imposible, asi que el rape abisal evoluciono una solucion radical: el macho, varias veces mas pequeno, sigue el rastro quimico de la hembra, le muerde el costado y se fusiona a ella. Pierde ojos y organos internos, comparte el torrente sanguineo y queda como una fuente permanente de esperma. Algunas hembras llevan varios machos pegados al cuerpo a la vez.",
+          "fuentes": [21]
+        },
+        {
+          "id": "quimica_presion",
+          "titulo": "Quimica contra la presion",
+          "contenido": "A esta profundidad la presion deforma proteinas y compromete las membranas celulares. Los peces batipelagicos producen un compuesto llamado TMAO (oxido de trimetilamina) que estabiliza sus proteinas y evita que colapsen. Su concentracion aumenta con la profundidad y es lo que les permite sobrevivir donde otros animales serian destruidos a nivel molecular.",
+          "fuentes": [11]
+        }
+      ],
+      "fuentes": [3, 4, 5, 6, 9, 11, 20, 21]
     },
     {
       "id": "abisopelagica",
@@ -96,7 +148,33 @@
       "fauna": ["Pepinos de mar", "Estrellas canasta", "Isopodos gigantes", "Pulpos pequenos", "Camarones de profundidad"],
       "dato_curioso": "Su nombre viene del griego 'abyssos' = 'sin fondo', porque se creia que el oceano profundo no tenia final. Cubre cerca del 75% del fondo marino.",
       "color_sugerido": "#06243A",
-      "fuentes": [1, 4, 8]
+      "secciones_extra": [
+        {
+          "id": "llanuras_abisales",
+          "titulo": "Llanuras abisales",
+          "contenido": "El fondo de la zona abisopelagica esta cubierto por llanuras enormes y planas, formadas por sedimento fino acumulado durante millones de anos. Son uno de los habitats mas extensos del planeta y, al mismo tiempo, de los menos explorados: se conoce mejor la superficie de la Luna o de Marte que la mayor parte del fondo abisal terrestre.",
+          "fuentes": [22, 4]
+        },
+        {
+          "id": "detritivoros",
+          "titulo": "Los barrenderos del oceano",
+          "contenido": "Sin produccion primaria propia, los animales del abismo viven del detritus que cae desde arriba. Pepinos de mar, anelidos y anfipodos recorren el fondo procesando esa materia organica. Cuando un animal grande muere y se hunde (un cadaver de ballena, por ejemplo) se forma un 'whale fall' que puede sustentar todo un ecosistema durante decadas.",
+          "fuentes": [23]
+        },
+        {
+          "id": "adaptaciones_abisopelagico",
+          "titulo": "Vivir bajo 400 atmosferas",
+          "contenido": "La fauna abisal suele ser blanda, transparente o blanquecina y tiene un metabolismo extremadamente lento. La longevidad aumenta con la profundidad: hay isopodos gigantes que sobreviven mas de 5 anos sin comer y almejas abisales que pueden superar los 500 anos de edad. Sus membranas celulares son mas fluidas para no rigidizarse con el frio constante.",
+          "fuentes": [4, 8]
+        },
+        {
+          "id": "exploracion",
+          "titulo": "Pocos humanos han bajado tan hondo",
+          "contenido": "Menos personas han visitado el fondo abisal que la superficie de la Luna. Casi toda la exploracion actual se hace con vehiculos no tripulados (ROV) o autonomos (AUV). El proyecto Seabed 2030 busca mapear todo el fondo oceanico al detalle antes de 2030; al cierre de 2024 se llevaba mapeado cerca del 26%.",
+          "fuentes": [24]
+        }
+      ],
+      "fuentes": [1, 4, 8, 22, 23, 24]
     },
     {
       "id": "hadopelagica",
@@ -132,6 +210,15 @@
     "14": "Guinness World Records - Deepest fish | https://www.guinnessworldrecords.com/world-records/deepest-fish",
     "15": "Wikipedia - Underwater camouflage | https://en.wikipedia.org/wiki/Underwater_camouflage",
     "16": "NOAA - Ocean acidification | https://www.noaa.gov/education/resource-collections/ocean-coasts/ocean-acidification",
-    "17": "National Weather Service JetStream - Layers of the Ocean | https://w2.weather.gov/jetstream/layers_ocean"
+    "17": "National Weather Service JetStream - Layers of the Ocean | https://w2.weather.gov/jetstream/layers_ocean",
+    "18": "Wikipedia - Bioluminescence | https://en.wikipedia.org/wiki/Bioluminescence",
+    "19": "Wikipedia - Diel vertical migration | https://en.wikipedia.org/wiki/Diel_vertical_migration",
+    "20": "NOAA Ocean Exploration - What is marine snow? | https://oceanexplorer.noaa.gov/facts/marine-snow.html",
+    "21": "Wikipedia - Anglerfish (parasitismo sexual del macho enano) | https://en.wikipedia.org/wiki/Anglerfish",
+    "22": "Wikipedia - Abyssal plain | https://en.wikipedia.org/wiki/Abyssal_plain",
+    "23": "Wikipedia - Whale fall | https://en.wikipedia.org/wiki/Whale_fall",
+    "24": "Seabed 2030 - Nippon Foundation-GEBCO Seabed 2030 Project | https://seabed2030.org/",
+    "25": "Wikipedia - Deep scattering layer | https://en.wikipedia.org/wiki/Deep_scattering_layer",
+    "26": "MBARI - Barreleye (Macropinna microstoma) | https://www.mbari.org/animal/barreleye/"
   }
 }
