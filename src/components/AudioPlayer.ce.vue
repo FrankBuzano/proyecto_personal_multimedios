@@ -1,64 +1,142 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onBeforeUnmount, computed } from "vue";
 
 const props = defineProps({
-    src: { type: String, required: true },
-    label: { type: String, default: "Narracion" },
-    preload: { type: String, default: "metadata" },
+    text: { type: String, required: true },
+    label: { type: String, default: "Escuchar" },
+    lang: { type: String, default: "es-ES" },
+    rate: { type: Number, default: 1 },
+    pitch: { type: Number, default: 1 },
 });
 
 const emit = defineEmits({
     play: null,
-    pause: null,
-    ended: null,
+    end: null,
+    error: null,
 });
 
-const audioEl = ref(null);
-const playing = ref(false);
+const supported =
+    typeof window !== "undefined" &&
+    "speechSynthesis" in window &&
+    "SpeechSynthesisUtterance" in window;
 
-function toggle() {
-    // TODO: implementar play/pause real sobre audioEl.value
+const playing = ref(false);
+let utterance = null;
+
+const titleAttr = computed(() => (playing.value ? `Detener ${props.label}` : props.label));
+
+if (supported) {
+    // Kick voice loading at module evaluation. Chrome loads voices asynchronously
+    // and the first call to speak() before voices are ready fails silently.
+    window.speechSynthesis.getVoices();
 }
 
-function onPlay() {
+function voicesReady() {
+    return supported && window.speechSynthesis.getVoices().length > 0;
+}
+
+function waitForVoices() {
+    return new Promise((resolve) => {
+        if (voicesReady()) return resolve();
+        const handler = () => {
+            window.speechSynthesis.removeEventListener("voiceschanged", handler);
+            resolve();
+        };
+        window.speechSynthesis.addEventListener("voiceschanged", handler);
+        setTimeout(() => {
+            window.speechSynthesis.removeEventListener("voiceschanged", handler);
+            resolve();
+        }, 1500);
+    });
+}
+
+function pickVoice() {
+    const voices = window.speechSynthesis.getVoices();
+    const exact = voices.find((v) => v.lang === props.lang);
+    if (exact) return exact;
+    const family = props.lang.split("-")[0];
+    return voices.find((v) => v.lang.startsWith(family)) ?? null;
+}
+
+function stop() {
+    if (!supported) return;
+    window.speechSynthesis.cancel();
+    playing.value = false;
+    utterance = null;
+}
+
+async function speak() {
+    if (!supported || !props.text) return;
+    const synth = window.speechSynthesis;
+    synth.cancel();
+
     playing.value = true;
     emit("play");
+
+    if (!voicesReady()) await waitForVoices();
+
+    utterance = new SpeechSynthesisUtterance(props.text);
+    utterance.lang = props.lang;
+    utterance.rate = props.rate;
+    utterance.pitch = props.pitch;
+    const voice = pickVoice();
+    if (voice) utterance.voice = voice;
+
+    utterance.onend = () => {
+        playing.value = false;
+        utterance = null;
+        emit("end");
+    };
+    utterance.onerror = (e) => {
+        if (e.error !== "canceled" && e.error !== "interrupted") {
+            console.warn("[marine-audio] speech error:", e.error);
+        }
+        playing.value = false;
+        utterance = null;
+        emit("error", e);
+    };
+
+    // Defer to next macrotask: works around a Chrome quirk where
+    // cancel() + speak() in the same task leaves the engine stuck.
+    setTimeout(() => {
+        if (utterance) synth.speak(utterance);
+    }, 0);
 }
 
-function onPause() {
-    playing.value = false;
-    emit("pause");
+function toggle() {
+    if (playing.value) stop();
+    else speak();
 }
 
-function onEnded() {
-    playing.value = false;
-    emit("ended");
-}
+onBeforeUnmount(stop);
 </script>
 
 <template>
-    <div class="player" part="root">
-        <button
-            type="button"
-            class="player__btn"
-            part="button"
-            :aria-pressed="playing"
-            :aria-label="(playing ? 'Pausar ' : 'Reproducir ') + label"
-            @click="toggle"
-        >
-            <span class="player__icon" aria-hidden="true">{{ playing ? "II" : "&#9658;" }}</span>
-            <span class="player__label" part="label">{{ label }}</span>
-        </button>
-
-        <audio
-            ref="audioEl"
-            :src="src"
-            :preload="preload"
-            @play="onPlay"
-            @pause="onPause"
-            @ended="onEnded"
-        ></audio>
-    </div>
+    <button
+        v-if="supported"
+        type="button"
+        class="tts"
+        part="button"
+        :class="{ 'tts--playing': playing }"
+        :aria-pressed="playing"
+        :aria-label="titleAttr"
+        :title="titleAttr"
+        @click="toggle"
+    >
+        <span class="tts__icon" aria-hidden="true">
+            <svg v-if="!playing" viewBox="0 0 24 24" width="14" height="14">
+                <path
+                    fill="currentColor"
+                    d="M4 9v6h4l5 4V5L8 9H4zm12.5 3a4.5 4.5 0 0 0-2.5-4.03v8.06A4.5 4.5 0 0 0 16.5 12zM14 3.23v2.06A7 7 0 0 1 14 18.7v2.07A9 9 0 0 0 14 3.23z"
+                />
+            </svg>
+            <svg v-else viewBox="0 0 24 24" width="14" height="14">
+                <rect x="6" y="5" width="4" height="14" fill="currentColor" rx="1" />
+                <rect x="14" y="5" width="4" height="14" fill="currentColor" rx="1" />
+            </svg>
+        </span>
+        <span class="tts__label" part="label">{{ playing ? "Detener" : label }}</span>
+    </button>
 </template>
 
 <style>
@@ -66,32 +144,52 @@ function onEnded() {
     display: inline-block;
 }
 
-.player {
+.tts {
     display: inline-flex;
     align-items: center;
-}
-
-.player__btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 0.9rem;
-    border: 1px solid currentColor;
+    gap: 0.4rem;
+    padding: 0.32rem 0.75rem;
+    border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
     border-radius: 999px;
-    background: transparent;
+    background: rgba(0, 0, 0, calc(0.05 + var(--bg-dark, 0) * 0.25));
     color: inherit;
     font: inherit;
+    font-size: 0.78rem;
+    line-height: 1;
     cursor: pointer;
+    transition:
+        background 140ms ease,
+        border-color 140ms ease,
+        transform 140ms ease;
 }
 
-.player__btn:focus-visible {
+.tts:hover {
+    background: rgba(0, 0, 0, calc(0.1 + var(--bg-dark, 0) * 0.3));
+    border-color: color-mix(in srgb, currentColor 55%, transparent);
+}
+
+.tts:active {
+    transform: scale(0.97);
+}
+
+.tts:focus-visible {
     outline: 2px solid currentColor;
     outline-offset: 2px;
 }
 
-.player__icon {
-    font-variant-numeric: tabular-nums;
-    min-width: 1.25ch;
-    text-align: center;
+.tts--playing {
+    background: color-mix(in srgb, currentColor 18%, transparent);
+    border-color: currentColor;
+}
+
+.tts__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tts__label {
+    font-weight: 600;
+    letter-spacing: 0.02em;
 }
 </style>
