@@ -11,6 +11,16 @@
     - Opciones de configuración (`shadowRootMode`, `shadowRoot.delegatesFocus`).
 
 
+## Uso de la IA (Claude)
+
+- **01.06.2026** — Consulta sobre organización inicial de componentes y composables
+  - Instrucciones: "cómo separar una app Vue 3 entre custom elements y SFC internos, y dónde poner la lógica reactiva reutilizable"
+  - Principales hallazgos:
+    - Distinguir entre componentes expuestos como custom element (`<marine-audio>`) y SFC internos al proyecto (`ZoneNav`).
+    - Extraer lógica reactiva reutilizable (oscurecer el fondo con el scroll) a un composable propio (`useScrollDarkness`) en lugar de dejarla en el componente.
+    - Definir el contrato (props/emits) de cada pieza antes de implementar la lógica interna.
+
+
 ## Vue 3 y plataforma web
 
 ### Vue 3 (framework)
@@ -63,4 +73,8 @@ Fuentes utilizadas en `public/data/sections.json`. Los identificadores numérico
 - [24] The Nippon Foundation–GEBCO Seabed 2030 Project (objetivo: mapear el 100% del fondo oceánico para 2030): <https://seabed2030.org/>
 - [25] Wikipedia — Deep scattering layer (capa de dispersión profunda detectada por sonar): <https://en.wikipedia.org/wiki/Deep_scattering_layer>
 - [26] MBARI — Barreleye, *Macropinna microstoma* (pez con cabeza transparente y ojos tubulares): <https://www.mbari.org/animal/barreleye/>
+- [27] Wikipedia — Hadal zone (caracterización general de la zona hadal, fauna y gigantismo abisal): <https://en.wikipedia.org/wiki/Hadal_zone>
+- [28] Wikipedia — Oceanic trench (formación de fosas por subducción y distribución en el Pacífico): <https://en.wikipedia.org/wiki/Oceanic_trench>
+- [29] Wikipedia — Challenger Deep (historia de descensos tripulados: Trieste 1960, Cameron 2012): <https://en.wikipedia.org/wiki/Challenger_Deep>
+- [30] Wikipedia — Mariana Trench (contaminación documentada y microplásticos en anfípodos hadales): <https://en.wikipedia.org/wiki/Mariana_Trench>
 

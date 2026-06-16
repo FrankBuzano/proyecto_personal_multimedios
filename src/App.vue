@@ -15,6 +15,7 @@ const navZones = computed(() =>
         id: z.id,
         name: z.nombre,
         depthRange: depthRange(z),
+        accent: z.color_sugerido,
     })),
 );
 
@@ -40,6 +41,7 @@ function zoneBlocks(zone) {
 const zoneImages = {
     epipelagica: `${import.meta.env.BASE_URL}assets/svg/zona-epipelagica.png`,
     batipelagica: `${import.meta.env.BASE_URL}assets/svg/zona-batipelagica.png`,
+    hadopelagica: `${import.meta.env.BASE_URL}assets/svg/zona-hadopelagica.png`,
 };
 
 onMounted(async () => {
@@ -62,11 +64,16 @@ async function scrollToZone({ id }) {
 <template>
     <main class="page">
         <header class="page__header">
-            <h1>{{ title }}</h1>
+            <h1 class="page__title">{{ title }}</h1>
             <p class="page__intro">
                 Un descenso por las cinco zonas verticales del oceano: a medida que bajamos, la luz
                 se apaga, la presion aumenta y la vida toma formas cada vez mas extranas.
             </p>
+            <div class="page__hint" aria-hidden="true">
+                <span class="page__hint-line"></span>
+                <span class="page__hint-text">Comienza el descenso</span>
+                <span class="page__hint-arrow">&#9662;</span>
+            </div>
         </header>
 
         <p v-if="error" role="alert" class="page__error">
@@ -109,14 +116,98 @@ async function scrollToZone({ id }) {
     padding: 2rem 1rem;
 }
 
-.page__header h1 {
-    margin: 0 0 0.5rem;
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
+.page__header {
+    position: relative;
+    margin-bottom: 2.5rem;
+    padding-block: 1.5rem 0;
+}
+
+.page__title {
+    --title-ink: color-mix(
+        in srgb,
+        var(--c-ink) calc((1 - var(--text-light, 0)) * 100%),
+        var(--c-ink-bright)
+    );
+    margin: 0 0 0.65rem;
+    font-size: clamp(2rem, 5.4vw, 3.1rem);
+    line-height: 1.08;
+    letter-spacing: -0.005em;
+    font-weight: 800;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.45rem;
+    background: linear-gradient(
+        180deg,
+        var(--title-ink) 0%,
+        color-mix(in srgb, var(--title-ink) 75%, var(--c-accent) 25%) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.page__title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 35%;
+    bottom: 0;
+    height: 2px;
+    background: linear-gradient(
+        to right,
+        var(--c-accent) 0%,
+        color-mix(in srgb, var(--c-accent) 35%, transparent) 60%,
+        transparent 100%
+    );
+    border-radius: 2px;
 }
 
 .page__intro {
-    margin: 0 0 2rem;
-    color: color-mix(in srgb, var(--c-ink) 75%, transparent);
+    margin: 0 0 1.6rem;
+    max-width: 42rem;
+    font-size: 1.02rem;
+    line-height: 1.65;
+    color: color-mix(in srgb, var(--c-ink) calc((1 - var(--text-light, 0)) * 78% + var(--text-light, 0) * 85%), transparent);
+}
+
+.page__hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    opacity: 0.7;
+}
+
+.page__hint-line {
+    width: 2rem;
+    height: 1px;
+    background: linear-gradient(
+        to right,
+        transparent,
+        currentColor 80%
+    );
+}
+
+.page__hint-arrow {
+    display: inline-flex;
+    animation: hint-bob 2.2s ease-in-out infinite;
+    font-size: 0.95rem;
+    color: var(--c-accent);
+}
+
+@keyframes hint-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page__hint-arrow {
+        animation: none;
+    }
 }
 
 .page__error {
@@ -129,6 +220,6 @@ async function scrollToZone({ id }) {
 .page__zones {
     display: grid;
     gap: 1.25rem;
-    margin-top: 1.5rem;
+    margin-top: 2.5rem;
 }
 </style>

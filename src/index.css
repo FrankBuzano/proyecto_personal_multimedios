@@ -26,11 +26,6 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100%;
-    background: color-mix(
-        in srgb,
-        var(--c-surface) calc((1 - var(--bg-dark)) * 100%),
-        var(--c-surface-deep)
-    );
     color: color-mix(
         in srgb,
         var(--c-ink) calc((1 - var(--text-light)) * 100%),
@@ -39,6 +34,72 @@ body {
     font-family: var(--font-body);
     line-height: 1.5;
     transition: background-color 120ms linear, color 120ms linear;
+}
+
+body {
+    background:
+        radial-gradient(
+            ellipse 1100px 700px at 50% -180px,
+            color-mix(in srgb, #ffffff calc((1 - var(--bg-dark)) * 38%), transparent),
+            transparent 65%
+        ),
+        radial-gradient(
+            ellipse 800px 1200px at 90% 30%,
+            color-mix(in srgb, var(--c-accent) calc((1 - var(--bg-dark)) * 12% + var(--bg-dark) * 5%), transparent),
+            transparent 70%
+        ),
+        radial-gradient(
+            ellipse 900px 1100px at 5% 80%,
+            color-mix(in srgb, #0a3a5a calc(var(--bg-dark) * 35% + 6%), transparent),
+            transparent 70%
+        ),
+        linear-gradient(
+            to bottom,
+            color-mix(in srgb, var(--c-surface) calc((1 - var(--bg-dark)) * 100%), var(--c-surface-deep))
+        );
+    background-attachment: fixed;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: -200px -20px -20px -20px;
+    z-index: -1;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><g fill='white'><circle cx='34' cy='22' r='0.9' opacity='0.62'/><circle cx='120' cy='52' r='0.6' opacity='0.4'/><circle cx='240' cy='28' r='1.1' opacity='0.55'/><circle cx='350' cy='80' r='0.7' opacity='0.5'/><circle cx='62' cy='102' r='1.2' opacity='0.6'/><circle cx='185' cy='138' r='0.65' opacity='0.42'/><circle cx='290' cy='180' r='0.9' opacity='0.5'/><circle cx='42' cy='210' r='0.7' opacity='0.4'/><circle cx='380' cy='225' r='0.6' opacity='0.36'/><circle cx='155' cy='262' r='0.85' opacity='0.5'/><circle cx='258' cy='305' r='1.05' opacity='0.55'/><circle cx='92' cy='325' r='0.7' opacity='0.42'/><circle cx='325' cy='362' r='0.8' opacity='0.48'/><circle cx='205' cy='390' r='0.6' opacity='0.35'/><circle cx='170' cy='5' r='0.5' opacity='0.3'/><circle cx='15' cy='165' r='0.55' opacity='0.35'/><circle cx='400' cy='130' r='0.6' opacity='0.38'/><circle cx='270' cy='95' r='0.5' opacity='0.32'/></g></svg>");
+    background-size: 420px 420px;
+    background-repeat: repeat;
+    opacity: calc(0.35 + var(--bg-dark, 0) * 0.55);
+    animation: snow-drift 95s linear infinite;
+    transition: opacity 200ms linear;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: radial-gradient(
+        ellipse 120% 100% at 50% 50%,
+        transparent 45%,
+        rgba(0, 0, 0, calc(0.12 + var(--bg-dark, 0) * 0.28)) 100%
+    );
+}
+
+@keyframes snow-drift {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(0, 420px, 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body::before {
+        animation: none;
+    }
 }
 
 img,

@@ -190,7 +190,33 @@
       "fauna": ["Caracol marino abisal (snailfish)", "Anfipodos", "Holoturias (pepinos de mar)", "Bacterias quimiosinteticas"],
       "dato_curioso": "El punto mas profundo es el Abismo Challenger (fosa de las Marianas), a ~10.935 m. El pez mas profundo jamas filmado fue un snailfish a 8.336 m en la fosa Izu-Ogasawara (2023); sobrevive gracias al TMAO, un compuesto que evita que sus proteinas colapsen por la presion.",
       "color_sugerido": "#020D16",
-      "fuentes": [1, 2, 6, 10, 11, 14]
+      "secciones_extra": [
+        {
+          "id": "geologia_fosas",
+          "titulo": "Como se forman las fosas",
+          "contenido": "Las fosas hadales no son cavidades en el fondo del oceano: son grietas tectonicas. Se forman en zonas de subduccion, donde una placa oceanica se hunde bajo otra. Por eso casi todas estan a lo largo del Cinturon de Fuego del Pacifico (Marianas, Tonga, Kermadec, Kuriles, Filipinas). Y por eso el hadal no es un habitat continuo sino un archipielago vertical: cada fosa es un mundo aislado donde la fauna evoluciona en gran parte por separado.",
+          "fuentes": [28, 27]
+        },
+        {
+          "id": "limite_biologico",
+          "titulo": "El limite biologico de los peces",
+          "contenido": "A 11.000 m la presion supera las 1.100 atmosferas: equivalente al peso de unos 50 aviones jumbo sobre una persona. Los snailfish hadales tienen cuerpos gelatinosos, sin vejiga natatoria, huesos parcialmente cartilaginosos y altisimas concentraciones de TMAO para que sus proteinas no se desnaturalicen. Sin embargo, cerca de los 8.200 m el TMAO deja de ser suficiente: parece ser el limite teorico de profundidad para cualquier pez, y los snailfish filmados a 8.336 m estan rozandolo.",
+          "fuentes": [10, 11, 14]
+        },
+        {
+          "id": "gigantismo_y_quimiosintesis",
+          "titulo": "Gigantismo y vida sin luz",
+          "contenido": "Aunque casi no hay peces, los invertebrados prosperan. Los anfipodos hadales presentan 'gigantismo abisal': Alicella gigantea puede superar los 30 cm, decenas de veces el tamano de sus parientes someros. En algunas fosas tambien existen comunidades quimiosinteticas, bacterias que aprovechan sulfuro de hidrogeno y metano filtrados desde el subsuelo para fabricar energia sin luz solar, sosteniendo pequenos oasis de vida en el fondo absoluto.",
+          "fuentes": [27]
+        },
+        {
+          "id": "exploracion_y_plasticos",
+          "titulo": "Pocos descensos, muchos plasticos",
+          "contenido": "Mas personas han caminado en la Luna que han bajado al Abismo Challenger. Los primeros en hacerlo fueron Piccard y Walsh en el batiscafo Trieste (1960); hasta el descenso de James Cameron en 2012 nadie habia vuelto. Pese a ese aislamiento extremo, se han encontrado microplasticos y contaminantes industriales en anfipodos capturados a mas de 10.000 m: ningun rincon del oceano escapa ya a la huella humana.",
+          "fuentes": [29, 30]
+        }
+      ],
+      "fuentes": [1, 2, 6, 10, 11, 14, 27, 28, 29, 30]
     }
   ],
 
@@ -219,6 +245,10 @@
     "23": "Wikipedia - Whale fall | https://en.wikipedia.org/wiki/Whale_fall",
     "24": "Seabed 2030 - Nippon Foundation-GEBCO Seabed 2030 Project | https://seabed2030.org/",
     "25": "Wikipedia - Deep scattering layer | https://en.wikipedia.org/wiki/Deep_scattering_layer",
-    "26": "MBARI - Barreleye (Macropinna microstoma) | https://www.mbari.org/animal/barreleye/"
+    "26": "MBARI - Barreleye (Macropinna microstoma) | https://www.mbari.org/animal/barreleye/",
+    "27": "Wikipedia - Hadal zone | https://en.wikipedia.org/wiki/Hadal_zone",
+    "28": "Wikipedia - Oceanic trench (formacion por subduccion) | https://en.wikipedia.org/wiki/Oceanic_trench",
+    "29": "Wikipedia - Challenger Deep (historia de descensos) | https://en.wikipedia.org/wiki/Challenger_Deep",
+    "30": "Wikipedia - Mariana Trench (contaminacion y microplasticos) | https://en.wikipedia.org/wiki/Mariana_Trench"
   }
 }
