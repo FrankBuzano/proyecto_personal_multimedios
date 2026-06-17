@@ -12,6 +12,11 @@ export default defineConfig({
     plugins: [
         vue({
             customElement: /\.ce\.vue$/,
+            template: {
+                compilerOptions: {
+                    isCustomElement: (tag) => tag.startsWith("marine-"),
+                },
+            },
         }),
     ],
     server: { port: 1234 },

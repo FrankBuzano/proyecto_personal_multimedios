@@ -1,6 +1,8 @@
 <script setup>
-import { onMounted, ref, computed, nextTick } from "vue";
+import { onMounted, onBeforeUnmount, ref, computed, nextTick, watch } from "vue";
 import ZoneNav from "./components/ZoneNav.vue";
+import ZoneBioluminescence from "./components/ZoneBioluminescence.vue";
+import NextZoneButton from "./components/NextZoneButton.vue";
 import { useScrollDarkness } from "./composables/useScrollDarkness.js";
 
 const data = ref(null);
@@ -9,6 +11,68 @@ const { darkness } = useScrollDarkness();
 
 const zones = computed(() => data.value?.zonas ?? []);
 const title = computed(() => data.value?._meta?.titulo ?? "Cargando...");
+
+const activeIndex = ref(-1);
+let scrollRaf = 0;
+
+const isLastZone = computed(
+    () => zones.value.length > 0 && activeIndex.value === zones.value.length - 1,
+);
+const currentAccent = computed(
+    () => zones.value[activeIndex.value]?.color_sugerido ?? null,
+);
+
+function updateActiveZone() {
+    scrollRaf = 0;
+    const threshold = window.innerHeight * 0.25;
+    let idx = -1;
+    const zs = zones.value;
+    for (let i = 0; i < zs.length; i++) {
+        const el = document.getElementById(`zona-${zs[i].id}`);
+        if (!el) continue;
+        if (el.getBoundingClientRect().top <= threshold) {
+            idx = i;
+        } else {
+            break;
+        }
+    }
+    if (idx < zs.length - 1) {
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        if (window.scrollY >= maxScroll - 2) idx = zs.length - 1;
+    }
+    activeIndex.value = idx;
+}
+
+function onScroll() {
+    if (scrollRaf) return;
+    scrollRaf = requestAnimationFrame(updateActiveZone);
+}
+
+watch(
+    () => zones.value.length,
+    async (n) => {
+        if (n > 0) {
+            await nextTick();
+            updateActiveZone();
+        }
+    },
+);
+
+onBeforeUnmount(() => {
+    window.removeEventListener("scroll", onScroll);
+    window.removeEventListener("resize", onScroll);
+    if (scrollRaf) cancelAnimationFrame(scrollRaf);
+});
+
+function goNextOrTop() {
+    if (isLastZone.value) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+    }
+    const targetIdx = activeIndex.value < 0 ? 0 : activeIndex.value + 1;
+    const target = zones.value[targetIdx];
+    if (target) scrollToZone({ id: target.id });
+}
 
 const navZones = computed(() =>
     zones.value.map((z) => ({
@@ -45,6 +109,8 @@ const zoneImages = {
 };
 
 onMounted(async () => {
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
     try {
         const res = await fetch(`${import.meta.env.BASE_URL}data/sections.json`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -104,8 +170,20 @@ async function scrollToZone({ id }) {
                     :alt="`Ilustracion de la zona ${zone.nombre}`"
                     decoding="async"
                 />
+                <ZoneBioluminescence
+                    v-else
+                    slot="image"
+                    :style="{ color: zone.color_sugerido }"
+                />
             </marine-zone>
         </div>
+
+        <NextZoneButton
+            v-if="zones.length"
+            :is-last="isLastZone"
+            :accent="currentAccent"
+            @go="goNextOrTop"
+        />
     </main>
 </template>
 

@@ -5,6 +5,7 @@ const props = defineProps({
     text: { type: String, required: true },
     label: { type: String, default: "Escuchar" },
     lang: { type: String, default: "es-ES" },
+    voiceName: { type: String, default: "Microsoft Pablo" },
     rate: { type: Number, default: 1 },
     pitch: { type: Number, default: 1 },
 });
@@ -52,6 +53,11 @@ function waitForVoices() {
 
 function pickVoice() {
     const voices = window.speechSynthesis.getVoices();
+    if (props.voiceName) {
+        const needle = props.voiceName.toLowerCase();
+        const byName = voices.find((v) => v.name.toLowerCase().includes(needle));
+        if (byName) return byName;
+    }
     const exact = voices.find((v) => v.lang === props.lang);
     if (exact) return exact;
     const family = props.lang.split("-")[0];
