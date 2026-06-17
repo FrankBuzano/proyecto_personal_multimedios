@@ -63,25 +63,48 @@ function positionPanel(triggerEl) {
     const panelW = panel.offsetWidth;
     const panelH = panel.offsetHeight;
     const margin = 12;
+    const isDesktop = window.innerWidth >= 720;
 
-    const trigCenter = trigRect.left + trigRect.width / 2;
-    let left = trigCenter - parentRect.left - panelW / 2;
+    let left;
+    let top;
+    let anchorOrigin;
+    let enterX = "0px";
+    let enterY = "0px";
+
+    const desktopLeft = chipsRect.left - parentRect.left - panelW - margin;
+
+    if (isDesktop && desktopLeft >= margin) {
+        left = desktopLeft;
+        top = trigRect.top - parentRect.top;
+        const minTopInView = -parentRect.top + 16;
+        const maxTopInView = window.innerHeight - panelH - 16 - parentRect.top;
+        if (maxTopInView > minTopInView) {
+            top = Math.max(minTopInView, Math.min(top, maxTopInView));
+        }
+        anchorOrigin = "right center";
+        enterX = "10px";
+    } else {
+        const trigCenter = trigRect.left + trigRect.width / 2;
+        left = trigCenter - parentRect.left - panelW / 2;
+        const fitsAboveChips = chipsRect.top - margin - panelH > 12;
+        top = fitsAboveChips
+            ? chipsRect.top - parentRect.top - panelH - margin
+            : chipsRect.bottom - parentRect.top + margin;
+        anchorOrigin = fitsAboveChips ? "center bottom" : "center top";
+        enterY = fitsAboveChips ? "8px" : "-8px";
+    }
+
     const maxLeft = parentRect.width - panelW - margin;
     if (left > maxLeft) left = Math.max(margin, maxLeft);
     if (left < margin) left = margin;
-
-    const fitsAboveChips = chipsRect.top - margin - panelH > 12;
-
-    const top = fitsAboveChips
-        ? chipsRect.top - parentRect.top - panelH - margin
-        : chipsRect.bottom - parentRect.top + margin;
 
     panelStyle.value = {
         top: `${top}px`,
         left: `${left}px`,
         visibility: "visible",
-        "--enter-y": fitsAboveChips ? "8px" : "-8px",
-        "--anchor-origin": fitsAboveChips ? "center bottom" : "center top",
+        "--enter-x": enterX,
+        "--enter-y": enterY,
+        "--anchor-origin": anchorOrigin,
     };
 }
 
@@ -183,40 +206,40 @@ onBeforeUnmount(() => {
                         <span class="zone__chip-btn-label">{{ b.titulo }}</span>
                     </button>
                 </div>
-
-                <div
-                    v-if="activeBlock"
-                    ref="panelRef"
-                    :id="`${zoneId}__panel`"
-                    class="zone__panel"
-                    :class="{ 'zone__panel--ready': panelReady }"
-                    role="dialog"
-                    :aria-label="activeBlock.titulo"
-                    :style="panelStyle"
-                    part="panel"
-                >
-                    <header class="zone__panel-head">
-                        <h3 class="zone__panel-title">{{ activeBlock.titulo }}</h3>
-                        <button
-                            type="button"
-                            class="zone__panel-close"
-                            aria-label="Cerrar"
-                            @click="closePanel"
-                        >
-                            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
-                                <path
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="2.4"
-                                    stroke-linecap="round"
-                                    d="M6 6l12 12M18 6L6 18"
-                                />
-                            </svg>
-                        </button>
-                    </header>
-                    <p class="zone__panel-body">{{ activeBlock.contenido }}</p>
-                </div>
             </div>
+        </div>
+
+        <div
+            v-if="activeBlock"
+            ref="panelRef"
+            :id="`${zoneId}__panel`"
+            class="zone__panel"
+            :class="{ 'zone__panel--ready': panelReady }"
+            role="dialog"
+            :aria-label="activeBlock.titulo"
+            :style="panelStyle"
+            part="panel"
+        >
+            <header class="zone__panel-head">
+                <h3 class="zone__panel-title">{{ activeBlock.titulo }}</h3>
+                <button
+                    type="button"
+                    class="zone__panel-close"
+                    aria-label="Cerrar"
+                    @click="closePanel"
+                >
+                    <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+                        <path
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.4"
+                            stroke-linecap="round"
+                            d="M6 6l12 12M18 6L6 18"
+                        />
+                    </svg>
+                </button>
+            </header>
+            <p class="zone__panel-body">{{ activeBlock.contenido }}</p>
         </div>
     </section>
 </template>
@@ -225,6 +248,7 @@ onBeforeUnmount(() => {
 :host {
     display: block;
     margin-block: 3.5rem 4.5rem;
+    scroll-margin-top: 1rem;
 
     --accent: #0aa6c2;
     --darkness: 0;
@@ -232,6 +256,12 @@ onBeforeUnmount(() => {
     --soft: rgba(0, 0, 0, calc(0.05 + var(--bg-dark, 0) * 0.35));
     --soft-strong: rgba(0, 0, 0, calc(0.11 + var(--bg-dark, 0) * 0.38));
     --line: color-mix(in srgb, currentColor 22%, transparent);
+}
+
+@media (min-width: 720px) {
+    :host {
+        scroll-margin-top: 5rem;
+    }
 }
 
 .zone {
@@ -262,7 +292,7 @@ onBeforeUnmount(() => {
     width: min(85%, 28rem);
     z-index: -1;
     pointer-events: none;
-    opacity: 0.48;
+    opacity: 0.62;
     -webkit-mask-image: linear-gradient(225deg, #000 22%, transparent 78%);
     mask-image: linear-gradient(225deg, #000 22%, transparent 78%);
 }
@@ -594,7 +624,7 @@ onBeforeUnmount(() => {
     backdrop-filter: blur(10px) saturate(1.1);
     -webkit-backdrop-filter: blur(10px) saturate(1.1);
     opacity: 0;
-    transform: scale(0.88) translateY(var(--enter-y, 8px));
+    transform: scale(0.88) translate(var(--enter-x, 0px), var(--enter-y, 8px));
     transform-origin: var(--anchor-origin, center bottom);
     transition:
         opacity 180ms ease,
@@ -604,7 +634,7 @@ onBeforeUnmount(() => {
 
 .zone__panel--ready {
     opacity: 1;
-    transform: scale(1) translateY(0);
+    transform: scale(1) translate(0, 0);
 }
 
 .zone__panel-head {
@@ -658,20 +688,37 @@ onBeforeUnmount(() => {
         width: min(48%, 26rem);
         top: -1.5rem;
         right: -2rem;
-        opacity: 0.55;
+        opacity: 0.72;
     }
 
     .zone__title-band {
         margin-left: -1.6rem;
     }
 
-    .zone__block--ambiente {
-        margin-left: 0.5rem;
+    .zone__layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) clamp(15rem, 30%, 18rem);
+        column-gap: 1.75rem;
+        align-items: start;
     }
 
+    .zone__content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        min-width: 0;
+    }
+
+    .zone__block--ambiente,
     .zone__block--fauna {
-        margin-left: 4rem;
-        margin-top: 0.5rem;
+        margin-left: 0;
+        margin-bottom: 0;
+    }
+
+    .zone__info {
+        margin-top: 0;
+        position: sticky;
+        top: 1rem;
     }
 
     .zone__panel {
