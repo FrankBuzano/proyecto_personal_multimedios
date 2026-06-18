@@ -721,6 +721,10 @@ onBeforeUnmount(() => {
         top: 1rem;
     }
 
+    .zone__info-chips {
+        justify-content: center;
+    }
+
     .zone__panel {
         max-width: min(28rem, calc(100% - 1rem));
     }

@@ -20,6 +20,35 @@
     - Extraer lógica reactiva reutilizable (oscurecer el fondo con el scroll) a un composable propio (`useScrollDarkness`) en lugar de dejarla en el componente.
     - Definir el contrato (props/emits) de cada pieza antes de implementar la lógica interna.
 
+- **03.06.2026** — Consulta sobre oscurecimiento progresivo al scrollear
+  - Instrucciones: "cómo hacer que el fondo y los textos se vayan oscureciendo a medida que el usuario baja por la página"
+  - Principales hallazgos:
+    - Mapear `scrollY / maxScroll` a un valor 0–1 actualizado dentro de `requestAnimationFrame` para no bloquear el scroll.
+    - Usar `smoothstep` para curvas suaves de transición en lugar de un cambio lineal.
+    - Exponer la progresión como variables CSS (`--page-darkness`, `--text-light`, `--bg-dark`) para que cada componente reaccione vía `color-mix`.
+
+- **16.06.2026** — Consulta sobre lector de texto (TTS) integrado
+  - Instrucciones: "cómo agregar un botón que lea en voz alta el texto de cada zona usando una API del navegador"
+  - Principales hallazgos:
+    - `window.speechSynthesis.getVoices()` es asíncrono en Chrome: hay que esperar el evento `voiceschanged` antes de elegir voz.
+    - Diferir `synth.speak()` con `setTimeout(0)` evita un bug donde `cancel()` + `speak()` en el mismo tick deja el motor atascado.
+    - Manejar `onend` / `onerror` en la `SpeechSynthesisUtterance` para resetear el estado `playing` del botón.
+
+- **17.06.2026** — Consulta sobre componentes decorativos y navegación entre zonas
+  - Instrucciones: "cómo simular bioluminiscencia en SVG para las zonas oscuras y agregar un botón flotante para saltar a la siguiente zona"
+  - Principales hallazgos:
+    - SVG inline con círculos posicionados manualmente y `animation` CSS para los puntos parpadeantes; el componente toma el color de la zona vía `currentColor`.
+    - Botón `position: fixed` abajo-derecha con `aria-label` dinámico: cuando ya es la última zona el botón pasa a "volver al inicio".
+    - Emitir un único evento `@go` desde el botón para que el padre (`App.vue`) decida el destino del scroll según el estado actual.
+
+- **18.06.2026** — Consulta sobre optimización de rendimiento y SVG navegable
+  - Instrucciones: "cómo aplicar las técnicas del slide de rendimiento (WebP, lazy loading, preload, AbortController) y cómo hacer un SVG accesible por teclado"
+  - Principales hallazgos:
+    - WebP reduce el peso de las imágenes; combinarlo con `loading="lazy"` y atributos `width`/`height` evita el CLS.
+    - `<link rel="preload" as="fetch">` permite que el navegador baje el JSON en paralelo con el bundle JS en lugar de esperarlo.
+    - `AbortController` con `addEventListener(..., { signal })` cancela listeners y timeouts pendientes en una sola operación.
+    - SVG inline accesible: cada zona clickeable como `<g role="button" tabindex="0">` con soporte de teclado (Enter/Space).
+
 
 ## Vue 3 y plataforma web
 
@@ -34,6 +63,15 @@
 - Renderizado condicional con `v-if` / `v-else` y `<template v-for>`: <https://vuejs.org/guide/essentials/conditional.html>
 - Modificador `.prop` en bindings para pasar valores como propiedad (necesario al pasar arrays/objetos a custom elements): <https://vuejs.org/guide/extras/web-components.html#passing-dom-properties>
 - Manejo de Shadow DOM y CSS Parts con `defineCustomElement`: <https://vuejs.org/guide/extras/web-components.html#sfc-as-custom-element>
+
+### Curso en video — Vue.js 3 (jofradev)
+
+Episodios consultados de la playlist *Curso de Vue.js 3 en Español 2024* del canal **jofradev** (José Barrientos) para reforzar los fundamentos del framework usado en el proyecto. Playlist completa: <https://www.youtube.com/playlist?list=PLg-z1C9R1jutezByZ3WmH8NE_JqYBsDOA>
+
+- Cómo Crear Proyecto Vue 3 y subirlo a Github | Curso de Vue.js 3 - 01: <https://www.youtube.com/watch?v=h2uMXGzX58M>
+- Fundamentos y Estructura de un Proyecto Vue 3 | Curso de Vue.js 3 - 02: <https://www.youtube.com/watch?v=EIwjp1Vs-q0>
+- La reactividad y componentes en un Proyecto Vue 3 | Curso de Vue.js 3 - 03: <https://www.youtube.com/watch?v=oeCfkrNyTk0>
+- Componentes Padres, Componentes Hijos y Props | Curso de Vue js 3 - 09: <https://www.youtube.com/watch?v=aPE5d2HBU-o>
 
 ### Plataforma web (estándares HTML/CSS)
 
@@ -77,4 +115,14 @@ Fuentes utilizadas en `public/data/sections.json`. Los identificadores numérico
 - [28] Wikipedia — Oceanic trench (formación de fosas por subducción y distribución en el Pacífico): <https://en.wikipedia.org/wiki/Oceanic_trench>
 - [29] Wikipedia — Challenger Deep (historia de descensos tripulados: Trieste 1960, Cameron 2012): <https://en.wikipedia.org/wiki/Challenger_Deep>
 - [30] Wikipedia — Mariana Trench (contaminación documentada y microplásticos en anfípodos hadales): <https://en.wikipedia.org/wiki/Mariana_Trench>
+
+## Recursos multimedia
+
+### Imágenes de las zonas oceánicas
+
+Las tres ilustraciones de zonas (`public/assets/svg/zona-epipelagica.webp`, `zona-batipelagica.webp`, `zona-hadopelagica.webp`) fueron **creadas manualmente en Canva Pro**, combinando elementos premium incluidos en la suscripción y descargadas con licencia de Canva Pro.
+
+- Canva Pro — Herramienta de diseño usada para componer cada zona a partir de elementos premium: <https://www.canva.com/pro/>
+- Las composiciones se exportaron originalmente como PNG (1000×1000 px) y se convirtieron a WebP (`quality: 82`) con `sharp` para optimizar el peso de transferencia (~30% de reducción promedio).
+- Las zonas mesopelágica y abisopelágica no usan PNG: se generan en tiempo de render con el componente `ZoneBioluminescence.vue` (SVG inline con puntos animados que simulan bioluminiscencia), por lo que no son archivos multimedia descargados.
 
