@@ -321,6 +321,11 @@ async function scrollToZone({ id }) {
 }
 
 @media (min-width: 1280px) {
+    .page {
+        margin-left: calc((100vw - 960px) / 2 + 40px);
+        margin-right: calc((100vw - 960px) / 2 - 40px);
+    }
+
     .page__sidebar {
         position: fixed;
         top: 50%;
