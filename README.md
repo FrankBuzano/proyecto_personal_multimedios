@@ -14,5 +14,22 @@ pnpm dev          # servidor de desarrollo en http://localhost:1234
 pnpm build        # build de producción a /dist
 pnpm preview      # previsualizar el build
 ```
+## Pantallazos de la página funcionando
 
+- [x] Pantalla inicial
+![Pantalla de inicio](public/assets/svg/screenshots/inicio.png)
 
+- [x] Zona epipelágica
+![Zona epipelágica](public/assets/svg/screenshots/epipelagica.png)
+
+- [x] Zona mesopelágica
+![Zona mesopelágica](public/assets/svg/screenshots/mesopelagica.png)
+
+- [x] Zona batipelágica
+![Zona batipelágica](public/assets/svg/screenshots/batipelagica.png)
+
+- [x] Zona abisopelágica
+![Zona abisopelágica](public/assets/svg/screenshots/abisopelagica.png)
+
+- [x] Zona hadopelágica
+![Zona hadopelágica](public/assets/svg/screenshots/hadopelagica.png)
