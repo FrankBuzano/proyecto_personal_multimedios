@@ -23,6 +23,8 @@ const supported =
 
 const playing = ref(false);
 let utterance = null;
+const controller = new AbortController();
+const { signal } = controller;
 
 const titleAttr = computed(() => (playing.value ? `Detener ${props.label}` : props.label));
 
@@ -38,16 +40,21 @@ function voicesReady() {
 
 function waitForVoices() {
     return new Promise((resolve) => {
-        if (voicesReady()) return resolve();
-        const handler = () => {
-            window.speechSynthesis.removeEventListener("voiceschanged", handler);
+        if (voicesReady() || signal.aborted) return resolve();
+
+        const done = () => {
+            clearTimeout(timeoutId);
             resolve();
         };
-        window.speechSynthesis.addEventListener("voiceschanged", handler);
-        setTimeout(() => {
-            window.speechSynthesis.removeEventListener("voiceschanged", handler);
-            resolve();
-        }, 1500);
+
+        window.speechSynthesis.addEventListener("voiceschanged", done, {
+            once: true,
+            signal,
+        });
+
+        const timeoutId = setTimeout(done, 1500);
+
+        signal.addEventListener("abort", done, { once: true });
     });
 }
 
@@ -114,7 +121,10 @@ function toggle() {
     else speak();
 }
 
-onBeforeUnmount(stop);
+onBeforeUnmount(() => {
+    controller.abort();
+    stop();
+});
 </script>
 
 <template>

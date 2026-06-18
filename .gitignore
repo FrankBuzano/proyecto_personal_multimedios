@@ -23,3 +23,5 @@ lerna-debug.log*
 *.sw?
 Notas.md
 .claude/*
+lighthouse-report.report.html
+lighthouse-report.report.json

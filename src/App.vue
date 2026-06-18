@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, onBeforeUnmount, ref, computed, nextTick, watch } from "vue";
-import ZoneNav from "./components/ZoneNav.vue";
+import ZoneDiagram from "./components/ZoneDiagram.vue";
 import ZoneBioluminescence from "./components/ZoneBioluminescence.vue";
 import NextZoneButton from "./components/NextZoneButton.vue";
 import { useScrollDarkness } from "./composables/useScrollDarkness.js";
@@ -20,6 +20,9 @@ const isLastZone = computed(
 );
 const currentAccent = computed(
     () => zones.value[activeIndex.value]?.color_sugerido ?? null,
+);
+const activeZoneId = computed(
+    () => zones.value[activeIndex.value]?.id ?? null,
 );
 
 function updateActiveZone() {
@@ -79,6 +82,8 @@ const navZones = computed(() =>
         id: z.id,
         name: z.nombre,
         depthRange: depthRange(z),
+        depthMin: z.prof_min_m,
+        depthMax: z.prof_max_m,
         accent: z.color_sugerido,
     })),
 );
@@ -103,9 +108,9 @@ function zoneBlocks(zone) {
 }
 
 const zoneImages = {
-    epipelagica: `${import.meta.env.BASE_URL}assets/svg/zona-epipelagica.png`,
-    batipelagica: `${import.meta.env.BASE_URL}assets/svg/zona-batipelagica.png`,
-    hadopelagica: `${import.meta.env.BASE_URL}assets/svg/zona-hadopelagica.png`,
+    epipelagica: `${import.meta.env.BASE_URL}assets/svg/zona-epipelagica.webp`,
+    batipelagica: `${import.meta.env.BASE_URL}assets/svg/zona-batipelagica.webp`,
+    hadopelagica: `${import.meta.env.BASE_URL}assets/svg/zona-hadopelagica.webp`,
 };
 
 onMounted(async () => {
@@ -146,11 +151,17 @@ async function scrollToZone({ id }) {
             No se pudo cargar la informacion: {{ error }}
         </p>
 
-        <ZoneNav v-if="zones.length" :zones="navZones" @select="scrollToZone" />
+        <aside v-if="zones.length" class="page__sidebar">
+            <ZoneDiagram
+                :zones="navZones"
+                :active-id="activeZoneId"
+                @select="scrollToZone"
+            />
+        </aside>
 
         <div class="page__zones">
             <marine-zone
-                v-for="zone in zones"
+                v-for="(zone, idx) in zones"
                 :key="zone.id"
                 :id="`zona-${zone.id}`"
                 :zone-id="zone.id"
@@ -168,6 +179,9 @@ async function scrollToZone({ id }) {
                     slot="image"
                     :src="zoneImages[zone.id]"
                     :alt="`Ilustracion de la zona ${zone.nombre}`"
+                    width="1000"
+                    height="1000"
+                    :loading="idx === 0 ? 'eager' : 'lazy'"
                     decoding="async"
                 />
                 <ZoneBioluminescence
@@ -299,5 +313,23 @@ async function scrollToZone({ id }) {
     display: grid;
     gap: 1.25rem;
     margin-top: 2.5rem;
+}
+
+.page__sidebar {
+    margin: 0 auto 1.5rem;
+    max-width: 240px;
+}
+
+@media (min-width: 1280px) {
+    .page__sidebar {
+        position: fixed;
+        top: 50%;
+        left: calc((100vw - 960px) / 4);
+        transform: translate(-50%, -50%);
+        width: clamp(140px, calc((100vw - 960px) / 2 - 32px), 220px);
+        max-width: 220px;
+        margin: 0;
+        z-index: 5;
+    }
 }
 </style>

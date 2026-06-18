@@ -139,4 +139,10 @@ const arrowPath = computed(() =>
         font-size: 0.78rem;
     }
 }
+
+@media (min-width: 1280px) {
+    .next-zone {
+        display: none;
+    }
+}
 </style>
