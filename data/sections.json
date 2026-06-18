@@ -1,0 +1,227 @@
+{
+  "_meta": {
+    "titulo": "Vida marina: de la superficie a las profundidades",
+    "uso": "Datos para infografia web interactiva. Orden = de menor a mayor profundidad (zona[0] arriba). Renderizar como secciones verticales apiladas o scroll de superficie->fondo.",
+    "campos_por_zona": "id, orden, nombre, nombre_alt (apodo comun), prof_min_m, prof_max_m, luz, temp, presion_atm, ambiente (texto descriptivo para tarjeta), fauna (lista para iconos/cards), dato_curioso, color_sugerido (degradado azul->negro), fuentes (indices al array fuentes[])",
+    "presion_regla": "Aumenta ~1 atm por cada 10 m. Util si quieres animar/calcular dinamicamente.",
+    "nota_color": "Sugerencia de paleta para reforzar la sensacion de descenso. El dev (yo) puede ajustar."
+  },
+  "zonas": [
+    {
+      "id": "epipelagica",
+      "orden": 1,
+      "nombre": "Zona epipelagica",
+      "nombre_alt": "Zona de luz solar",
+      "prof_min_m": 0,
+      "prof_max_m": 200,
+      "luz": "Abundante. Unica zona con suficiente luz para fotosintesis.",
+      "temp": "Variable y calida; cambia con clima y latitud (hasta ~20-30 C en tropicos).",
+      "presion_atm": "1-20",
+      "ambiente": "La delgada capa iluminada donde vive casi todo lo que conocemos. Aqui ocurre la mayor parte de la produccion primaria del oceano (el fitoplancton fabrica alimento con luz solar). Acaba en la termoclina, una caida brusca de temperatura.",
+      "fauna": [
+        "Fitoplancton",
+        "Atun",
+        "Delfines",
+        "Tortugas marinas",
+        "Tiburones",
+        "Medusas",
+        "Ballenas (sumergen desde aqui)"
+      ],
+      "dato_curioso": "Aporta el grueso del alimento del oceano y de aqui sale casi toda la pesca mundial, pese a ser solo los primeros 200 m.",
+      "color_sugerido": "#3FA9F5",
+      "secciones_extra": [
+        {
+          "id": "subdivisiones",
+          "titulo": "Subdivisiones",
+          "contenido": "Dentro de los primeros 200 m hay dos sub-capas: la capa de mezcla (mixed layer), donde el viento y las olas mantienen la temperatura casi uniforme, y la termoclina estacional, una franja en la que la temperatura cae rapidamente con la profundidad. El espesor de cada capa varia con la estacion y la latitud."
+        },
+        {
+          "id": "produccion_primaria",
+          "titulo": "Productividad y oxigeno",
+          "contenido": "El fitoplancton de esta zona realiza la fotosintesis que sostiene casi toda la cadena alimentaria marina. Se estima que entre el 50% y el 80% del oxigeno atmosferico proviene de organismos foto sinteticos del oceano, la mayoria viviendo en la zona epipelagica."
+        },
+        {
+          "id": "adaptaciones",
+          "titulo": "Adaptaciones: contrasombreado",
+          "contenido": "Muchos peces de mar abierto presentan contrasombreado (countershading): dorso oscuro y vientre claro. Vistos desde arriba se confunden con el agua profunda; vistos desde abajo se mezclan con la luz que baja. Atunes, tiburones y caballas usan esta estrategia para esquivar depredadores en una zona sin nada donde esconderse."
+        },
+        {
+          "id": "amenazas",
+          "titulo": "Amenazas humanas",
+          "contenido": "Es la franja oceanica mas expuesta a la actividad humana: sobrepesca, calentamiento del agua, microplasticos que el zooplancton confunde con alimento y acidificacion (la acidez del oceano subio cerca de 30% desde la revolucion industrial, dificultando la formacion de conchas y corales)."
+        }
+      ]
+    },
+    {
+      "id": "mesopelagica",
+      "orden": 2,
+      "nombre": "Zona mesopelagica",
+      "nombre_alt": "Zona crepuscular (twilight)",
+      "prof_min_m": 200,
+      "prof_max_m": 1000,
+      "luz": "Tenue y decreciente (zona disfotica). Hay algo de luz para ver, pero NO para fotosintesis.",
+      "temp": "Cae con rapidez al cruzar la termoclina; aprox. 4-20 C.",
+      "presion_atm": "20-100",
+      "ambiente": "La penumbra azul. Solo llega cerca del 20% de la produccion primaria de la superficie, asi que los organismos compiten por alimento escaso. Aqui empiezan a verse los destellos de la bioluminiscencia.",
+      "fauna": [
+        "Pez linterna",
+        "Pez hacha",
+        "Calamar / sepia",
+        "Pez vibora",
+        "Pez dragon"
+      ],
+      "dato_curioso": "Protagoniza la mayor migracion de animales del planeta: cada noche miles de millones de criaturas suben a alimentarse a la superficie y bajan al amanecer.",
+      "color_sugerido": "#1B6CA8",
+      "secciones_extra": [
+        {
+          "id": "bioluminiscencia",
+          "titulo": "Bioluminiscencia",
+          "contenido": "Cerca del 76% de las especies del mesopelagico producen su propia luz. Lo logran con dos compuestos, luciferina y luciferasa, que al reaccionar liberan luz fria sin calor. La usan para atraer presas, asustar depredadores, comunicarse con su misma especie y como contra-iluminacion: emiten luz desde el vientre para no proyectar silueta oscura contra la claridad que baja desde la superficie."
+        },
+        {
+          "id": "migracion_vertical",
+          "titulo": "La migracion mas grande del planeta",
+          "contenido": "Cada noche, miles de millones de peces, calamares y krill suben desde el mesopelagico hasta la superficie para alimentarse al amparo de la oscuridad, y al amanecer descienden a esconderse. Es la mayor migracion de animales del planeta y forma parte de la 'bomba biologica' que mueve carbono desde la superficie al oceano profundo cuando esos animales defecan o mueren abajo."
+        },
+        {
+          "id": "ojos_especializados",
+          "titulo": "Ojos hechos para la penumbra",
+          "contenido": "Los habitantes del mesopelagico suelen tener ojos enormes en relacion al cuerpo, a menudo tubulares y orientados hacia arriba, para captar la poca luz que baja. La retina esta dominada por bastones extra sensibles a longitudes de onda azules (la unica banda que llega hasta aqui). El barreleye (Macropinna microstoma) lleva la adaptacion al extremo: tiene la cabeza transparente y ojos verdes que rotan dentro del craneo."
+        },
+        {
+          "id": "deep_scattering_layer",
+          "titulo": "Capa de dispersion profunda",
+          "contenido": "Durante la Segunda Guerra Mundial los sonares detectaban un 'fondo falso' que subia al anochecer y bajaba al amanecer. Era la Deep Scattering Layer: una banda densa de peces linterna, krill y calamares mesopelagicos moviendose en bloque. Estudios recientes estiman que la biomasa de peces mesopelagicos supera con creces a la del resto de la pesca mundial combinada."
+        }
+      ]
+    },
+    {
+      "id": "batipelagica",
+      "orden": 3,
+      "nombre": "Zona batipelagica",
+      "nombre_alt": "Zona de medianoche (midnight)",
+      "prof_min_m": 1000,
+      "prof_max_m": 4000,
+      "luz": "Oscuridad total. La unica luz es la que producen los propios animales (bioluminiscencia).",
+      "temp": "Casi constante, ~4 C.",
+      "presion_atm": "100-400",
+      "ambiente": "Oscuridad perpetua y mayor volumen de agua que cualquier otra zona. Sin plantas. Los animales cazan a otros habitantes o esperan la 'nieve marina' (restos que caen desde arriba). Salinidad ~33-35 g/kg.",
+      "fauna": [
+        "Rape abisal",
+        "Calamar gigante",
+        "Pulpo Dumbo",
+        "Pez tragon",
+        "Cachalotes"
+      ],
+      "dato_curioso": "Es la zona mas grande del oceano por volumen, y aun asi una de las menos exploradas por la dificultad de bajar tan hondo.",
+      "color_sugerido": "#0B3B5C",
+      "secciones_extra": [
+        {
+          "id": "nieve_marina",
+          "titulo": "Nieve marina",
+          "contenido": "Sin luz no hay produccion primaria propia: el alimento llega como 'nieve marina', particulas que caen desde arriba (plancton muerto, escamas de piel, heces, polvo). Cada particula puede tardar semanas en bajar hasta el fondo. Es la base de la cadena alimenticia del oceano profundo y un componente clave del ciclo global del carbono."
+        },
+        {
+          "id": "adaptaciones_batipelagico",
+          "titulo": "Cuerpos hechos para no gastar",
+          "contenido": "Como casi no llega comida, los animales batipelagicos minimizan el gasto energetico: musculos blandos, huesos ligeros o casi ausentes y metabolismo lentisimo. Compensan con bocas enormes y estomagos elasticos que les permiten tragar presas casi tan grandes como ellos cuando aparece una. El pez tragon (Chiasmodon niger, 'black swallower') puede engullir presas mas grandes que su propio cuerpo."
+        },
+        {
+          "id": "reproduccion_rape",
+          "titulo": "Rapes: parasitismo sexual",
+          "contenido": "Encontrar pareja en total oscuridad es casi imposible, asi que el rape abisal evoluciono una solucion radical: el macho, varias veces mas pequeno, sigue el rastro quimico de la hembra, le muerde el costado y se fusiona a ella. Pierde ojos y organos internos, comparte el torrente sanguineo y queda como una fuente permanente de esperma. Algunas hembras llevan varios machos pegados al cuerpo a la vez."
+        },
+        {
+          "id": "quimica_presion",
+          "titulo": "Quimica contra la presion",
+          "contenido": "A esta profundidad la presion deforma proteinas y compromete las membranas celulares. Los peces batipelagicos producen un compuesto llamado TMAO (oxido de trimetilamina) que estabiliza sus proteinas y evita que colapsen. Su concentracion aumenta con la profundidad y es lo que les permite sobrevivir donde otros animales serian destruidos a nivel molecular."
+        }
+      ]
+    },
+    {
+      "id": "abisopelagica",
+      "orden": 4,
+      "nombre": "Zona abisopelagica",
+      "nombre_alt": "El abismo (abyss)",
+      "prof_min_m": 4000,
+      "prof_max_m": 6000,
+      "luz": "Oscuridad absoluta.",
+      "temp": "Cercana a la congelacion, ~2-4 C.",
+      "presion_atm": "400-600",
+      "ambiente": "Frio, negro y aplastante. Muy pocas criaturas resisten. Predominan invertebrados de metabolismo lento, estomagos elasticos y bocas grandes. Cubre la mayor parte del fondo oceanico.",
+      "fauna": [
+        "Pepinos de mar",
+        "Estrellas canasta",
+        "Isopodos gigantes",
+        "Pulpos pequenos",
+        "Camarones de profundidad"
+      ],
+      "dato_curioso": "Su nombre viene del griego 'abyssos' = 'sin fondo', porque se creia que el oceano profundo no tenia final. Cubre cerca del 75% del fondo marino.",
+      "color_sugerido": "#06243A",
+      "secciones_extra": [
+        {
+          "id": "llanuras_abisales",
+          "titulo": "Llanuras abisales",
+          "contenido": "El fondo de la zona abisopelagica esta cubierto por llanuras enormes y planas, formadas por sedimento fino acumulado durante millones de anos. Son uno de los habitats mas extensos del planeta y, al mismo tiempo, de los menos explorados: se conoce mejor la superficie de la Luna o de Marte que la mayor parte del fondo abisal terrestre."
+        },
+        {
+          "id": "detritivoros",
+          "titulo": "Los barrenderos del oceano",
+          "contenido": "Sin produccion primaria propia, los animales del abismo viven del detritus que cae desde arriba. Pepinos de mar, anelidos y anfipodos recorren el fondo procesando esa materia organica. Cuando un animal grande muere y se hunde (un cadaver de ballena, por ejemplo) se forma un 'whale fall' que puede sustentar todo un ecosistema durante decadas."
+        },
+        {
+          "id": "adaptaciones_abisopelagico",
+          "titulo": "Vivir bajo 400 atmosferas",
+          "contenido": "La fauna abisal suele ser blanda, transparente o blanquecina y tiene un metabolismo extremadamente lento. La longevidad aumenta con la profundidad: hay isopodos gigantes que sobreviven mas de 5 anos sin comer y almejas abisales que pueden superar los 500 anos de edad. Sus membranas celulares son mas fluidas para no rigidizarse con el frio constante."
+        },
+        {
+          "id": "exploracion",
+          "titulo": "Pocos humanos han bajado tan hondo",
+          "contenido": "Menos personas han visitado el fondo abisal que la superficie de la Luna. Casi toda la exploracion actual se hace con vehiculos no tripulados (ROV) o autonomos (AUV). El proyecto Seabed 2030 busca mapear todo el fondo oceanico al detalle antes de 2030; al cierre de 2024 se llevaba mapeado cerca del 26%."
+        }
+      ]
+    },
+    {
+      "id": "hadopelagica",
+      "orden": 5,
+      "nombre": "Zona hadopelagica",
+      "nombre_alt": "Zona hadal (las fosas)",
+      "prof_min_m": 6000,
+      "prof_max_m": 11000,
+      "luz": "Oscuridad absoluta.",
+      "temp": "Muy fria, ~1-4 C.",
+      "presion_atm": "600-1100",
+      "ambiente": "Las fosas oceanicas, lo mas profundo del planeta. Nombre por Hades, dios griego del inframundo. Presion superior a 1000 atmosferas. El alimento son restos que tardan semanas o meses en hundirse. Hay ~46 habitats hadales, casi todos en el Pacifico.",
+      "fauna": [
+        "Caracol marino abisal (snailfish)",
+        "Anfipodos",
+        "Holoturias (pepinos de mar)",
+        "Bacterias quimiosinteticas"
+      ],
+      "dato_curioso": "El punto mas profundo es el Abismo Challenger (fosa de las Marianas), a ~10.935 m. El pez mas profundo jamas filmado fue un snailfish a 8.336 m en la fosa Izu-Ogasawara (2023); sobrevive gracias al TMAO, un compuesto que evita que sus proteinas colapsen por la presion.",
+      "color_sugerido": "#020D16",
+      "secciones_extra": [
+        {
+          "id": "geologia_fosas",
+          "titulo": "Como se forman las fosas",
+          "contenido": "Las fosas hadales no son cavidades en el fondo del oceano: son grietas tectonicas. Se forman en zonas de subduccion, donde una placa oceanica se hunde bajo otra. Por eso casi todas estan a lo largo del Cinturon de Fuego del Pacifico (Marianas, Tonga, Kermadec, Kuriles, Filipinas). Y por eso el hadal no es un habitat continuo sino un archipielago vertical: cada fosa es un mundo aislado donde la fauna evoluciona en gran parte por separado."
+        },
+        {
+          "id": "limite_biologico",
+          "titulo": "El limite biologico de los peces",
+          "contenido": "A 11.000 m la presion supera las 1.100 atmosferas: equivalente al peso de unos 50 aviones jumbo sobre una persona. Los snailfish hadales tienen cuerpos gelatinosos, sin vejiga natatoria, huesos parcialmente cartilaginosos y altisimas concentraciones de TMAO para que sus proteinas no se desnaturalicen. Sin embargo, cerca de los 8.200 m el TMAO deja de ser suficiente: parece ser el limite teorico de profundidad para cualquier pez, y los snailfish filmados a 8.336 m estan rozandolo."
+        },
+        {
+          "id": "gigantismo_y_quimiosintesis",
+          "titulo": "Gigantismo y vida sin luz",
+          "contenido": "Aunque casi no hay peces, los invertebrados prosperan. Los anfipodos hadales presentan 'gigantismo abisal': Alicella gigantea puede superar los 30 cm, decenas de veces el tamano de sus parientes someros. En algunas fosas tambien existen comunidades quimiosinteticas, bacterias que aprovechan sulfuro de hidrogeno y metano filtrados desde el subsuelo para fabricar energia sin luz solar, sosteniendo pequenos oasis de vida en el fondo absoluto."
+        },
+        {
+          "id": "exploracion_y_plasticos",
+          "titulo": "Pocos descensos, muchos plasticos",
+          "contenido": "Mas personas han caminado en la Luna que han bajado al Abismo Challenger. Los primeros en hacerlo fueron Piccard y Walsh en el batiscafo Trieste (1960); hasta el descenso de James Cameron en 2012 nadie habia vuelto. Pese a ese aislamiento extremo, se han encontrado microplasticos y contaminantes industriales en anfipodos capturados a mas de 10.000 m: ningun rincon del oceano escapa ya a la huella humana."
+        }
+      ]
+    }
+  ]
+}
